@@ -54,7 +54,7 @@ Program Coordinator        University of Calgary 					2013-2017
 ![Tableau Prep Builder](/assets/Tableau Prep Builder.png) 	 
 ![Tableau Prep Builder with Py files](/assets/Tableau Prep Builder2.png)   	
 
-### Other Data Projects 
- - Big Data, Data Engineering, ETL, Machine Learning and Data Science etc.
-[Sample Data Projects by JM](https://github.com/mengjin2211/sample-work)
+### Other Projects 
+ - Big Data, Data Engineering, ETL, Machine Learning and Data Science    
+[Sample Data Projects by JM](https://github.com/mengjin2211/sample-work)  
 
