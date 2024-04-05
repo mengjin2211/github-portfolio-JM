@@ -1,4 +1,70 @@
 # back to the portfolio  https://mengjin2211.github.io/github-portfolio-JM/
+import pandas as pd; import os
+from datetime import date
+import datetime  
+import dateutil.relativedelta
+import matplotlib
+import matplotlib.pyplot as plt
+from datetime import datetime 
+import pprint as pp  
+import numpy as np
+from sklearn.metrics import mean_squared_error
+from sklearn.metrics import mean_absolute_error
+import matplotlib.pyplot as plt
+from prophet import Prophet
+import plotly.graph_objs as go
+
+# Obtain backlog from SQL DB through aws tunnel
+import psycopg2
+from sshtunnel import SSHTunnelForwarder
+
+tunnel = SSHTunnelForwarder(
+    ('xxxx', 22),
+    ssh_username="xxxx",
+    ssh_private_key='xxxx\\vpn\\id_rsa',
+    #ssh_pkey='xxxx\\vpn\\id_rsa',
+    ssh_private_key_password='xxxx',
+    remote_bind_address=('xxxxrds.amazonaws.com', xxxx),
+    local_bind_address=('localhost',xxxx), # could be any available port
+)
+ 
+tunnel.start()
+ 
+conn = psycopg2.connect(
+    database="xxx",
+    user="xxx",
+    password="xxxx",
+    host=tunnel.local_bind_host,
+    port=tunnel.local_bind_port
+    
+) 
+# skipping the sql queries here....
+
+# split data
+df2=influx.copy()
+df2['Week'] = pd.to_datetime(df2['Week'])
+df2.sort_values(by='Week', inplace=True)
+df2['Year'] = df2['Week'].dt.year
+df2['Month'] = df2['Week'].dt.month
+df2['Influx'] = pd.to_numeric(df2['Influx'], errors='coerce')
+df2.rename(columns={'Week': 'ds', 'Influx': 'y'}, inplace=True)
+train = df2[df2['Year'] < 2023]
+#train = df2[(df2['Year'] >= 2020) & (df2['Year'] < 2023)]
+test = df2[df2['Year'] >= 2023]
+train_color = 'blue'
+train_label = 'Train Data'
+
+train_plot = train.plot(x='ds', y='y', 
+    figsize=(10, 5), title='Train & Test', style='-', color=train_color, label=train_label)
+
+test_color = 'red'
+test_label = 'Test Data'
+
+test.plot(ax=train_plot, x='ds', y='y', style='-', color=test_color, label=test_label)
+plt.legend()
+plt.show()
+
+
 def create_prophet_model(df):
      
     changepoint_prior_scale_values = 20
@@ -53,3 +119,61 @@ def image(weeks):
     plt.close()
     # img_base64 = base64.b64encode(img_buffer.getvalue()).decode('utf-8')  
     return pred, img_base64 
+
+def validation(train, test):
+    changepoint_prior_scale_values = 20
+    seasonality_prior_scale_values = 3 
+    model = Prophet(
+        changepoint_prior_scale=changepoint_prior_scale_values,
+        seasonality_prior_scale=seasonality_prior_scale_values)
+    model.add_seasonality(name='monthly', period=4, fourier_order=10)
+    model.add_seasonality(name='quarterly', period=13, fourier_order=9)
+    np.random.seed(0)
+    model=model.fit(train)
+    #train_pred=model.predict(train)[['ds','yhat']]
+    test_pred=model.predict(test)[['ds','yhat']]
+    #train_rmse = np.sqrt(mean_squared_error(train['y'], train_pred['yhat']))
+    test_rmse = np.sqrt(mean_squared_error(test['y'].values, test_pred['yhat'].values))
+    Mean_abs_err = mean_absolute_error(test['y'], test_pred['yhat']) 
+    print("Mean Absolute Error:", Mean_abs_err,
+                "\nRoot Mean Squared Error for test (RMSE):", test_rmse)
+    return test_pred
+
+start_date = '2023-01-01'   
+end_date='2024-01-15'
+selected_test = test[(test['ds'] >= start_date) & (test['ds'] <= end_date)]
+selected_test_pred = test_pred[(test_pred['ds'] >= start_date) & (test_pred['ds'] <= end_date)]
+
+fig, ax = plt.subplots(figsize=(12, 6))
+ax.plot(selected_test['ds'], selected_test['y'], label='Test Data', color='green')
+ax.plot(selected_test_pred['ds'], selected_test_pred['yhat'], label='Test Forecast', color='red')
+
+plt.xlabel('Week')
+plt.ylabel('Influx')
+plt.title('Prophet Influx Forecast '+ start_date+' to '+end_date)
+plt.legend(loc='best')
+
+import matplotlib.dates as mdates
+ax.xaxis.set_major_locator(mdates.MonthLocator())
+ax.xaxis.set_major_formatter(mdates.DateFormatter('%b %d'))
+plt.xticks(rotation=45, ha='right')
+
+plt.show()
+
+print(predict_prophet(10))
+
+
+# creating User Interaction Interface on web using gradio 
+
+import gradio as gr 
+gr.close_all()
+iface = gr.Interface(fn=predict_prophet,
+    inputs=gr.Number(label="Number of Weeks"),
+        outputs=[
+        gr.Textbox(label="Prediction"),
+        #gr.Image(type="pil")
+    ],
+    live=True )
+url = iface.launch()
+print(f"Interface URL: {url}")
+iface.launch()
