@@ -2,9 +2,8 @@
 
 import pandas as pd
 import os
-from datetime import date
+from datetime import date, datetime
 from openpyxl import load_workbook
-import datetime
 import dateutil.relativedelta
 import openpyxl
 import xlsxwriter
@@ -18,25 +17,25 @@ import pprint as pp
 from gspread_dataframe import get_as_dataframe, set_with_dataframe
 from oauth2client.service_account import ServiceAccountCredentials
 from df2gspread import df2gspread as d2g
-import seaborn as sns
-import pandas as pd
 from google.oauth2.service_account import Credentials
 from googleapiclient.discovery import build
+import seaborn as sns
 
-report_start_date=datetime.datetime.strptime ('02-01-24',"%m-%d-%y") # 1 month ago
-report_end_date= datetime.datetime.strptime ('02-26-24',"%m-%d-%y") # processed indexes
+
+report_start_date=datetime.datetime.strptime ('02-01-24',"%m-%d-%y")  
+report_end_date= datetime.datetime.strptime ('02-29-24',"%m-%d-%y")  
 
 import psycopg2
 from sshtunnel import SSHTunnelForwarder
 # building data pipeline by ingesting from SQL database to Python
 tunnel = SSHTunnelForwarder(
-    ('xxxx', 22),
+    ('xxxx', xx),
     ssh_username="xxxx",
     ssh_private_key='xxxx',
     #ssh_pkey='xxxx',
     ssh_private_key_password='xxxx',
-    remote_bind_address=('xxxx.amazonaws.com', 5xxx),
-    local_bind_address=('localhost',5xxx),  
+    remote_bind_address=('xxxx.xxx.com', 5xxx),
+    local_bind_address=('localhost',xxxx),  
 )
 tunnel.start()
 # Create a database connection
@@ -77,6 +76,8 @@ ax.tick_params(axis='both', which='both', length=0, labelsize=12, pad=10)
 plt.xticks(rotation=45, ha='right')
 plt.tight_layout()
 
+# sql statement to exclude weekend and holidays
+
 # Add data labels to the bars
 for i, v in enumerate(grouped_by_type['Turnaround exc Weekend & Holidays']):
     ax.text(i, v+0.3, str(round(v, 2)), ha='center', fontsize=12, fontweight='bold', color='#2E2E2E')
@@ -100,44 +101,37 @@ tunnel.stop()
 
 # Turnaround calculation
 df = pd.DataFrame(result)
-df.columns =['Type', 'Payer', 'DocID', 'AssetID','Policy', 'Latest Tracking Date','Note Time Stamp','Turnaround Calendar Days',
-            'Turnaround exc Weekend & Holidays', 'Username']
-grouped_by_username = df.groupby('Username')[['Turnaround exc Weekend & Holidays']].mean().reset_index().round(2)
-grouped_by_payer = df.groupby('Payer')[['Turnaround exc Weekend & Holidays']].mean().reset_index().round(2)
-grouped_by_type = df.groupby('Type')[['Turnaround exc Weekend & Holidays']].mean().reset_index().round(2)
+df.columns =['xxxxx']
+grouped_by_staff = df.groupby('staff')[['Turnaround exc Weekend & Holidays']].mean().reset_index().round(2)
+grouped_by_AAA = df.groupby('AAA')[['Turnaround exc Weekend & Holidays']].mean().reset_index().round(2)
+grouped_by_BBB = df.groupby('BBB')[['Turnaround exc Weekend & Holidays']].mean().reset_index().round(2)
 
 # removed a few lines from here....
-df_pr=df_NonCentene[df_NonCentene['Type'] == 'Priority']
-df_cv = df_NonCentene[(df_NonCentene['Type'] == 'coverage')]
-df_Ncv = df_NonCentene[~((df_NonCentene['Type'] == 'coverage') | (df_NonCentene['Type'] == 'Priority'))]
-percentiles = df_pr['Turnaround exc Weekend & Holidays'].quantile(0.85) 
+df_c=df_CCC[df['Type'] == 'CCC']
+df_d = df_DDD[(df['Type'] == 'DDD)]
+df_e = df_EE[~((df['Type'] == 'CCC') | (df_NonCentene['Type'] == 'DDD'))]
+percentiles = df_c['Turnaround exc Weekend & Holidays'].quantile(0.85) 
 
-df_pr_turnaround = df_pr[df_pr['Turnaround exc Weekend & Holidays'] 
+df_c_turnaround = df_c[df_c['Turnaround exc Weekend & Holidays'] 
                                     <= percentiles]
 
-df_pr_85turnaround_all = df_pr_turnaround['Turnaround exc Weekend & Holidays'].mean() 
-percentiles = df_pr.groupby('Username')['Turnaround exc Weekend & Holidays'].quantile(0.85).reset_index()
+df_c_85turnaround_all = df_c_turnaround['Turnaround exc Weekend & Holidays'].mean() 
+percentiles = df_c.groupby('Username')['Turnaround exc Weekend & Holidays'].quantile(0.85).reset_index()
 
-pr_turnaround = pd.merge(df_pr, percentiles, on='Username', suffixes=('', '_cutoff'))
+c_turnaround = pd.merge(df_c, percentiles, on='Username', suffixes=('', '_cutoff'))
 
-pr_turnaround = pr_turnaround[pr_turnaround['Turnaround exc Weekend & Holidays'] 
-                              <= pr_turnaround['Turnaround exc Weekend & Holidays_cutoff']]
+c_turnaround = c_turnaround[c_turnaround['Turnaround exc Weekend & Holidays'] 
+                              <= c_turnaround['Turnaround exc Weekend & Holidays_cutoff']]
 
-pr_85turnaround_by_staff = pr_turnaround.groupby('Username')['Turnaround exc Weekend & Holidays'].mean().reset_index().round(2)
+c_85turnaround_by_staff = c_turnaround.groupby('staff')['Turnaround exc Weekend & Holidays'].mean().reset_index().round(2)
 
 
 today = date.today()
 print("Today date is: ", today)
-# Select row
-row = turnaround_all[['pr_85turnaround_all', 'cv_85turnaround_all', 
-                      'Ncv_85turnaround_all','Centene_85turnaround_all', '85All']].iloc[0]
+ 
 
-# Map index names to new label names
-label_map = {'pr_85turnaround_all': 'Priority',
-             'cv_85turnaround_all': 'Coverage',
-             'Ncv_85turnaround_all': 'Non-Coverage',
-             'Centene_85turnaround_all': 'Centene',
-             '85All': 'All'}
+# Map to new label names
+label_map = {...}
 
 new_labels = [label_map[label] for label in row.index]
 
@@ -176,8 +170,8 @@ plt.show()
 
 #pie chart
 quarterly_goal=2
-num_rows_le_7 = len(df_cv_turnaround[df_cv_turnaround['Turnaround exc Weekend & Holidays'] <= quarterly_goal])
-num_rows_gt_7 = len(df_cv_turnaround[df_cv_turnaround['Turnaround exc Weekend & Holidays'] > quarterly_goal])
+num_rows_le_7 = len(df_d_turnaround[df_d_turnaround['Turnaround exc Weekend & Holidays'] <= quarterly_goal])
+num_rows_gt_7 = len(df_d_turnaround[df_d_turnaround['Turnaround exc Weekend & Holidays'] > quarterly_goal])
 
 # Create the donut chart
 colors = ['darkgreen', 'red']
@@ -200,8 +194,8 @@ scope = ['https://www.googleapis.com/auth/spreadsheets']
 credentials = ServiceAccountCredentials.from_json_keyfile_name('./xxxx.json', scope)
 wks_name = 'turnaround_all' 
 d2g.upload(turnaround_all, spreadsheet_key, wks_name, credentials=credentials, row_names=False)
-wks_name = 'cv_85turnaround_by_staff' 
-d2g.upload(cv_85turnaround_by_staff, spreadsheet_key, wks_name, credentials=credentials, row_names=False)
-wks_name = 'ncv_85turnaround_by_staff' 
-d2g.upload(ncv_85turnaround_by_staff, spreadsheet_key, wks_name, credentials=credentials, row_names=False)
+wks_name = 'd_85turnaround_by_staff' 
+d2g.upload(d_85turnaround_by_staff, spreadsheet_key, wks_name, credentials=credentials, row_names=False)
+wks_name = 'e_85turnaround_by_staff' 
+d2g.upload(e_85turnaround_by_staff, spreadsheet_key, wks_name, credentials=credentials, row_names=False)
 
