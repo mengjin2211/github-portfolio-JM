@@ -20,7 +20,7 @@ Program Coordinator        University of Calgary 					2013-2017
 
 ## Projects
 ### Machine Learning Projects
-•	Time-Series Analysis of Influxes Using Prophet Machine Learning Model
+![Time-Series Analysis of Influxes Using Prophet Machine Learning Model](/assets/Time Series Analysis ML Model.png)
 •	NLP Project
 ### Report Automation
 •	Time-Series Analysis of Influxes Using Prophet Machine Learning Model
