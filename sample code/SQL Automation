@@ -13,5 +13,86 @@ The function handles cases where certain levels are not populated, marking them 
 The retrieved data is ordered by various filters.
 Overall, this function fetch user data based on attribute selections and their corresponding levels, making the data ready for bulk upload.
 
+# Recursive CTE was used to construct the hierachy. High level syntax is as follows: 
+        WITH RECURSIVE attributelist(child_id, ancestor_ids, ancestor_names, parent_id) AS (
+            SELECT tbl.id,
+                   ARRAY[tbl.legacy_id] AS "array",
+                   ARRAY[tbl.name] AS "array",
+                   tbl.parent_id
+            FROM table_name AS tbl
+            WHERE tbl.dtime IS NULL
+            
+            UNION ALL
+            
+            SELECT attlist_1.child_id,
+                   tbl.legacy_id || attlist_1.ancestor_ids,
+                   tbl.name || attlist_1.ancestor_names,
+                   tbl.parent_id
+            FROM table_name AS tbl
+            JOIN attributelist AS attlist_1 ON tbl.id = attlist_1.parent_id
+            WHERE tbl.dtime IS NULL
+        ) select .....
+
+# high-level syntax I used to create the function
+
+DROP FUNCTION IF EXISTS automation;
+
+CREATE OR REPLACE FUNCTION automation(
+    new_attribute integer,
+    existing_attribute integer,
+    new_attribute_level text
+) RETURNS TABLE (
+    entity_id integer,
+    ...
+) LANGUAGE 'plpgsql'
+COST 100
+IMMUTABLE STRICT PARALLEL SAFE
+AS $BODY$
+BEGIN
+    IF (SELECT * FROM (
+        SELECT DISTINCT CASE
+            WHEN new_attribute_level='attribute' THEN attributeid
+            WHEN new_attribute_level='subattribute' THEN subattributeid
+            WHEN new_attribute_level='ssubattribute' THEN ssubattributeid
+            WHEN new_attribute_level='sssubattribute' THEN sssubattributeid
+        END AS new_attribute_no
+        FROM public.xxx
+    ) new WHERE new.new_attribute_no = new_attribute) IS NULL THEN
+        RETURN QUERY (
+            SELECT 0, 'new_attribute doesn''t exist', 'new_attribute doesn''t exist', 'new_attribute doesn''t exist',
+            'new_attribute doesn''t exist', '', '', ARRAY[0], ARRAY[0], ARRAY[0], ARRAY[0], '', '', ''
+        );
+    ELSIF new_attribute_level='attribute' THEN
+        RETURN QUERY (
+            SELECT
+               ...
+                CASE
+                    WHEN  THEN  
+                END AS highest_blank_level,
+                d.attributechosen,
+                d.subattributechosen,
+                d.ssubattributechosen,
+                d.sssubattributechosen,
+                DENSE_RANK() OVER (ORDER BY xxxx ASC) AS company_filter_value,
+                DENSE_RANK() OVER (ORDER BY d.xxxn||d.sxxx||d.sxxxn||d.sssuxxx ASC) AS filter_value,
+               FROM
+                xxx
+            WHERE
+               xxx IN (
+                    ...
+                )
+                AND xxx NOT IN (
+                    SELECT ...
+                    WHERE n.attributeid && ARRAY[new_attribute]
+                )
+                AND d.dtime IS NULL
+            ORDER BY
+                ....
+        );
+    END IF;
+END;
+$BODY$;
+
+
 # bulk uploader
 Upload the above file to bulk uploader. 
