@@ -37,7 +37,7 @@ Program Coordinator        University of Calgary 					2013-2017
     [Turnaround Dashboard Python Code](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/Turnaround%20Calculation%20Python%20Code%20Ingestion%20SQL%20DB)  
 
 ### Report Automation-	Rubric Benchmark
-    [Rubric Calculation Code](https://github.com/mengjin2211/github-portfolio-JM/tree/main/sample%20code)    
+    [Rubric Calculation Python Code](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/rubric%20calculation%20python%20code)    
     
 ### SQL Sample Queries - postgreSQL Functions
 •	Time-Series Analysis of Influxes Using Prophet Machine Learning Model
