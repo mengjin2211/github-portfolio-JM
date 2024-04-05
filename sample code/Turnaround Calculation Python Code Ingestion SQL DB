@@ -28,9 +28,6 @@ report_end_date= datetime.datetime.strptime ('02-26-24',"%m-%d-%y") # processed 
 
 import psycopg2
 from sshtunnel import SSHTunnelForwarder
-# For interactive work (on ipython) it's easier to work with explicit objects
-# instead of contexts.
-
 # building data pipeline by ingesting from SQL database to Python
 tunnel = SSHTunnelForwarder(
     ('xxxx', 22),
@@ -41,7 +38,6 @@ tunnel = SSHTunnelForwarder(
     remote_bind_address=('xxxx.amazonaws.com', 5xxx),
     local_bind_address=('localhost',5xxx),  
 )
-# Start the tunnel
 tunnel.start()
 # Create a database connection
 conn = psycopg2.connect(
@@ -49,21 +45,13 @@ conn = psycopg2.connect(
     user="xxxx",
     password="xxxx",
     host=tunnel.local_bind_host,
-    port=tunnel.local_bind_port
-    
+    port=tunnel.local_bind_port   
 )
 
 query ="""									
 with allresults as									
-(					...				)													
-									
+(					...				)																					
 select	...								
-where									
-allresults.verified = 'true'									
-AND allresults.cat like 'Index Pages'									
-and date >= '"""+str(report_start_date)+"""' and date <= '"""+str(report_end_date)+"""' 									
-and notes is not null									
-and first_rev.rev>1																	
 """;
 
 # Set the style for the chart
@@ -207,9 +195,9 @@ plt.show()
 
 # Writing to gsheet
 spreadsheet_key='1Vbs_ofoD0FcP_xxxx'
-#creds_file='xxxx7-1133c7e53dcb.json'
+#creds_file='xxxx.json'
 scope = ['https://www.googleapis.com/auth/spreadsheets']  
-credentials = ServiceAccountCredentials.from_json_keyfile_name('./xxxx7-1133c7e53dcb.json', scope)
+credentials = ServiceAccountCredentials.from_json_keyfile_name('./xxxx.json', scope)
 wks_name = 'turnaround_all' 
 d2g.upload(turnaround_all, spreadsheet_key, wks_name, credentials=credentials, row_names=False)
 wks_name = 'cv_85turnaround_by_staff' 
