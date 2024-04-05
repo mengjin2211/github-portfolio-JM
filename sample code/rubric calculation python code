@@ -1,0 +1,55 @@
+# return to Portfolio page: https://github.com/mengjin2211/github-portfolio-JM/edit/main
+import pandas as pd; import os
+from datetime import date
+from openpyxl import load_workbook
+import datetime  
+import dateutil.relativedelta
+import openpyxl
+import xlsxwriter
+import xlwings as xw #to insert image in excel
+import matplotlib
+import matplotlib.pyplot as plt
+import numpy as np
+import gspread
+#from gspread_pandas import Spread, Client
+import pygsheets
+import pprint as pp 
+from datetime import date
+import gspread
+import pygsheets
+import pprint as pp
+import pandas as pd
+import gspread_dataframe
+from gspread_dataframe import get_as_dataframe, set_with_dataframe
+from oauth2client.service_account import ServiceAccountCredentials
+from df2gspread import df2gspread as d2g
+
+df_index=pd.read_csv('index_completed.csv')
+df_url_added=pd.read_csv('url_added.csv')
+df_url_updated=pd.read_csv('url_updated.csv')
+
+df_index=df_index.rename(columns={"user":"Name","\"Index Pages\"":"Indexes Processed"})
+df_url_added=df_url_added.rename(columns={"user":"Name","count":"URLs Added"})
+df_url_added.drop(['percent'], axis=1, inplace=True)
+                                     "Index Maintenance":"URLs Edited (Index Maint)"})
+
+# skip a few lines here
+
+data = {
+    'index_time': [index_time],
+    'url_added': [df_url_added['URLs Added'].sum()],
+    'url_updated': [df_url_updated['Total URLs Edited'].sum()],
+    'index': [df_index['Indexes Processed'].sum()]
+}
+
+df_summary = pd.DataFrame(data)
+
+index_hr_avg=df_index['Indexes Processed'].sum()/index_time
+added_hr_avg=df_url_added['URLs Added'].sum()/index_time
+udpated_hr_avg=df_url_updated['Total URLs Edited'].sum()/index_time
+data = {'hourly_url_added': added_hr_avg,
+        'hourly_url_edited': udpated_hr_avg,
+        'hourly_index': index_hr_avg}
+
+df = pd.DataFrame(data,index=[0])
+df
