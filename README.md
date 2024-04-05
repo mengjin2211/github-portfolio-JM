@@ -48,8 +48,8 @@ Program Coordinator        University of Calgary 					2013-2017
 ### Customer Request Analysis Model
 [Client Request Topic Analysis NLP](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/Customer%20Request%20Analysis%20NLP%20Model)   
 
-### Report Automation Flow/Matrix
-Previously, the creation of complex reports demanded over 200 hours/per report of manual effort. By integrating an automation flow and employing Python data scripts within our preparation builder flow, we've streamlined the process to under 10 hours per report. This enhancement not only accelerates our reporting speed but also significantly augments our capacity to deliver actionable business insights, empowering us to drive impactful institutional campaigns.     
+### Report Automation Matrix
+Previously, the creation of complex reports demanded over 200 hours/per report. By integrating an automation flow and employing Python data scripts within our Tableau Prep builder flow, we've streamlined the process to under 10 hours. This enhancement not only accelerates our reporting speed but also significantly augments our capacity to deliver actionable business insights, empowering us to drive impactful institutional campaigns. (Images used are for illustrative purposes only)    
 ![Tableau Prep Builder](/assets/Tableau Prep Builder.png) 	 
 ![Tableau Prep Builder with Py files](/assets/Tableau Prep Builder2.png) 	
  
