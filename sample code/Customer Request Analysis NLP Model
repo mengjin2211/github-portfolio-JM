@@ -14,7 +14,21 @@ It filters out the reason code 'FREE' and analyzes how many of them were issued 
 Custom Request Reason Cluster:
 Text preprocessing is performed on the 'REASON_TEXT' column of this dataset, including removing unwanted characters, tokenization, stop-word removal, lemmatization, and stemming.
 
+Tokenizing:
+     stemmer = SnowballStemmer('english')
+     def lemmatize_stemming(text):
+         return stemmer.stem(WordNetLemmatizer().lemmatize(text,pos='v'))
+     def preprocess(text):
+         result = []
+         for token in gensim.utils.simple_preprocess(text):
+             if token not in gensim.parsing.preprocessing.STOPWORDS and len(token) > 3:
+                 result.append(lemmatize_stemming(token))
+         return result
+
 BoW and TF-IDF models are created from the preprocessed text.
+     lda_model = gensim.models.LdaMulticore(bag_of_words_corpus, num_topics = 20, id2word= dictionary, passes = 2, workers = 2)
+     lda_model_tfidf = gensim.models.LdaMulticore(corpus_tfidf, num_topics = 20, id2word = dictionary, passes = 2, workers = 4)
+
 Bag of Words is constructed using the Gensim library, and TF-IDF scores are calculated.
 Both models are prepared for further analysis.
 Latent Dirichlet Allocation (LDA) Model:
