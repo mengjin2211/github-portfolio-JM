@@ -18,22 +18,22 @@ from gspread_dataframe import get_as_dataframe, set_with_dataframe
 
 # obtain performance data from even log from splunk and project management software 
 df_measure1=pd.read_csv('measure1.csv')
-df_measure2_added=pd.read_csv('umeasure2.csv')
-df_measure3=pd.read_csv('umeasure3.csv')
+df_measure2_added=pd.read_csv('measure2.csv')
+df_measure3=pd.read_csv('measure3.csv')
 
 df_index=df_index.rename(columns={"..."})
 df_url_added=df_url_added.rename(columns={"..."})
 df_url_added.drop(['percent'], axis=1, inplace=True)
                                      "..."})
-# access SQL database to integrate data
+# access SQL database  
 tunnel = SSHTunnelForwarder(
-    ('xxxx', 22),
+    ('xxxx', xxx),
     ssh_username="xxxx",
     ssh_private_key='xxxx',
     #ssh_pkey='xxxx',
     ssh_private_key_password='xxxx',
-    remote_bind_address=('xxxx.amazonaws.com', 5xxx),
-    local_bind_address=('localhost',5xxx),  
+    remote_bind_address=('xxxx.xxx.com', xxxx),
+    local_bind_address=('localhost',xxxx),  
 )
 # Start the tunnel
 tunnel.start()
@@ -113,20 +113,20 @@ html_content = f"""
 </head>
 <body>
     <div class="image-container">
-        <h2>DQAT Metrics YTD</h2>
-        <img src="{table_image}" alt="DQAT Metrics">
+        <h2>YTD Metrics and Progress</h2>
+        <img src="{table_image}" alt="Metrics">
     </div>
     <div class="image-container">
-        <h2>Weekly Backlog</h2>
-        <img src="{plt1_image}" alt="Weekly Backlog">
+        <h2>Demand vs Production</h2>
+        <img src="{plt1_image}" alt="Demand vs Production">
     </div>
     <div class="image-container">
-        <h2>Weekly Index Influx</h2>
-        <img src="{plt2_image}" alt="Weekly Index Influx">
+        <h2>Weekly Work Queue</h2>
+        <img src="{plt2_image}" alt="Weekly Work Queue">
     </div>
     <div class="image-container">
-        <h2>Monthly Index Processed</h2>
-        <img src="{plt3_image}" alt="Index Processed">
+        <h2>Monthly Production</h2>
+        <img src="{plt3_image}" alt="Monthly Production">
     </div>
 
 </body>
