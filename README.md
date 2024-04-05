@@ -24,7 +24,7 @@ Program Coordinator        University of Calgary 					2013-2017
   -Based on historical influx data, I created ML model to forecast the future influxes for resource planning   
   ![Time-Series Analysis of Influxes Using Prophet Machine Learning Model](/assets/Time Series Analysis ML Model.png)  
     
-  [Time-Series Analysis ML Code](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/time-series%20analysis)  
+#### [Time-Series Analysis ML Code](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/time-series%20analysis)  
 
 ### AI Applications 
  -Using LLM model APIs to conduct text analysis, semantic search, categorization and sumarization  
@@ -34,10 +34,10 @@ Program Coordinator        University of Calgary 					2013-2017
 ### Report Automation-	Turnaround Dashboard
   - To enhance operations efficiency, I created the turnaround metrics and dashboard using python to benchmark performance
     ![Turnaround Dashboard](/assets/Turnaround.png)     
-    [Turnaround Dashboard Python Code](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/Turnaround%20Calculation%20Python%20Code%20Ingestion%20SQL%20DB)  
+#### [Turnaround Dashboard Python Code](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/Turnaround%20Calculation%20Python%20Code%20Ingestion%20SQL%20DB)  
 
 ### Report Automation-	Rubric Benchmark
-    [Rubric Calculation Python Code](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/rubric%20calculation%20python%20code)    
+#### [Rubric Calculation Python Code](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/rubric%20calculation%20python%20code)    
     
 ### SQL Sample Queries - postgreSQL Functions
 •	Time-Series Analysis of Influxes Using Prophet Machine Learning Model
