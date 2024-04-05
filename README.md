@@ -1,5 +1,4 @@
-# github-portfolio-JM
-# data engineer manager
+# Data Engineer Manager
 
 ### Work Experience
 Data Quality Manager
