@@ -19,3 +19,12 @@ Program Coordinator        University of Calgary 					2013-2017
 •	IBM Data Warehouse Engineer Certificate 
 
 ## Projects
+### Machine Learning Projects
+•	Time-Series Analysis of Influxes Using Prophet Machine Learning Model
+•	NLP Project
+### Report Automation
+•	Time-Series Analysis of Influxes Using Prophet Machine Learning Model
+•	NLP Project
+### SQL Queries
+•	Time-Series Analysis of Influxes Using Prophet Machine Learning Model
+•	NLP Project
