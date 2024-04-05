@@ -1,10 +1,17 @@
-I developed a postgreSQL function that handles the complex inheritance hierachy and retrieves report to enable bulk-processing. 
-Positive impact: 10+ hr/weekly manual processing reduced to a couple of minutes 
-Here's a brief description of the function's logic:
+# SQL 
+I developed a postgreSQL function that handles the complex inheritance &hierachy and retrieves report to enable bulk-processing. 
+Tools: CTE, Recursive CTE, user-defined function 
+Positive impact: 10 hr to 20 hr/weekly manual processing saved for the meta data management person  
 
-My function first checks if the category exists in the specified hierachy level (master, sub, ssub, sssub ).
-Depending on the new_cat_level, it executes different queries to fetch data from the database.
-Each query retrieves distinct member IDs along with their corresponding details such as name, email, company, and category selections.
-The function handles cases where certain category levels are not populated, marking them as cat_blank, subcat_blank, ssubcat_blank, or sssubcat_blank.
-The retrieved data is ordered by various filters such as ImportUser_Filter, CompanyFilter, and CategoryFilter.
-Overall, this function seems to be designed to fetch user data based on category selections and their corresponding levels, with considerations for various blank levels and ordering criteria.
+I'm unable to share the company script due to confidentiality agreements, but I can describe the projects I've worked on in general terms below. 
+
+Here's a brief description of the function's logic:
+My function first checks if the a certain attribute exists in the specified hierachy level (master, sub, ssub, sssub ).
+Depending on the new document hierachy level, it executes different queries to fetch data from the database.
+Each query retrieves distinct member IDs along with their corresponding details such as name, email, and attribute selections.
+The function handles cases where certain levels are not populated, marking them as hierachy level.
+The retrieved data is ordered by various filters.
+Overall, this function fetch user data based on attribute selections and their corresponding levels, making the data ready for bulk upload.
+
+# bulk uploader
+Upload the above file to bulk uploader. 
