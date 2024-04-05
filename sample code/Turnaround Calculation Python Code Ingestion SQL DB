@@ -1,0 +1,217 @@
+import pandas as pd
+import os
+from datetime import date
+from openpyxl import load_workbook
+import datetime
+import dateutil.relativedelta
+import openpyxl
+import xlsxwriter
+import xlwings as xw  # to insert image in excel
+import matplotlib
+import matplotlib.pyplot as plt
+import numpy as np
+import gspread
+import pygsheets
+import pprint as pp
+from gspread_dataframe import get_as_dataframe, set_with_dataframe
+from oauth2client.service_account import ServiceAccountCredentials
+from df2gspread import df2gspread as d2g
+import seaborn as sns
+import pandas as pd
+from google.oauth2.service_account import Credentials
+from googleapiclient.discovery import build
+
+report_start_date=datetime.datetime.strptime ('02-01-24',"%m-%d-%y") # 1 month ago
+report_end_date= datetime.datetime.strptime ('02-26-24',"%m-%d-%y") # processed indexes
+
+import psycopg2
+from sshtunnel import SSHTunnelForwarder
+# For interactive work (on ipython) it's easier to work with explicit objects
+# instead of contexts.
+
+# building data pipeline by ingesting from SQL database to Python
+tunnel = SSHTunnelForwarder(
+    ('xxxx', 22),
+    ssh_username="xxxx",
+    ssh_private_key='xxxx',
+    #ssh_pkey='xxxx',
+    ssh_private_key_password='xxxx',
+    remote_bind_address=('xxxx.amazonaws.com', 5xxx),
+    local_bind_address=('localhost',5xxx),  
+)
+# Start the tunnel
+tunnel.start()
+# Create a database connection
+conn = psycopg2.connect(
+    database="xxxx",
+    user="xxxx",
+    password="xxxx",
+    host=tunnel.local_bind_host,
+    port=tunnel.local_bind_port
+    
+)
+
+query ="""									
+with allresults as									
+(					...				)													
+									
+select	...								
+where									
+allresults.verified = 'true'									
+AND allresults.cat like 'Index Pages'									
+and date >= '"""+str(report_start_date)+"""' and date <= '"""+str(report_end_date)+"""' 									
+and notes is not null									
+and first_rev.rev>1																	
+""";
+
+# Set the style for the chart
+sns.set_style("whitegrid")
+
+# Define the colors for the bars
+colors = ['#C9D9E7', '#FBAF5D', '#B2DF8A', '#FFCDD2', '#BC80BD']
+
+# Create a bar chart
+fig, ax = plt.subplots(figsize=(8, 6))
+ax.bar(grouped_by_type['Type'], grouped_by_type['Turnaround exc Weekend & Holidays'], 
+       width=0.5, color=colors, edgecolor='none')
+
+# Add labels and title
+ax.set_xlabel('Type', fontsize=14, labelpad=10)
+ax.set_ylabel('Turnaround Time (days)', fontsize=14, labelpad=10)
+ax.set_title('Turnaround Time by Type from '+str(report_start_date.strftime('%Y-%m-%d'))+' to '+str(report_end_date.strftime('%Y-%m-%d')), fontsize=16, fontweight='bold', pad=20)
+
+# Customize the chart appearance
+ax.spines['top'].set_visible(False)
+ax.spines['right'].set_visible(False)
+ax.tick_params(axis='both', which='both', length=0, labelsize=12, pad=10)
+plt.xticks(rotation=45, ha='right')
+plt.tight_layout()
+
+# Add data labels to the bars
+for i, v in enumerate(grouped_by_type['Turnaround exc Weekend & Holidays']):
+    ax.text(i, v+0.3, str(round(v, 2)), ha='center', fontsize=12, fontweight='bold', color='#2E2E2E')
+
+# Show the chart
+plt.show()
+
+# Get a database cursor
+cur = conn.cursor()
+
+# Execute SQL
+cur.execute(query)
+
+# Get the result
+result = cur.fetchall()
+print(result)
+
+# Close connections
+conn.close()
+tunnel.stop()
+
+# Turnaround calculation
+df = pd.DataFrame(result)
+df.columns =['Type', 'Payer', 'DocID', 'AssetID','Policy', 'Latest Tracking Date','Note Time Stamp','Turnaround Calendar Days',
+            'Turnaround exc Weekend & Holidays', 'Username']
+grouped_by_username = df.groupby('Username')[['Turnaround exc Weekend & Holidays']].mean().reset_index().round(2)
+grouped_by_payer = df.groupby('Payer')[['Turnaround exc Weekend & Holidays']].mean().reset_index().round(2)
+grouped_by_type = df.groupby('Type')[['Turnaround exc Weekend & Holidays']].mean().reset_index().round(2)
+
+# removed a few lines from here....
+df_pr=df_NonCentene[df_NonCentene['Type'] == 'Priority']
+df_cv = df_NonCentene[(df_NonCentene['Type'] == 'coverage')]
+df_Ncv = df_NonCentene[~((df_NonCentene['Type'] == 'coverage') | (df_NonCentene['Type'] == 'Priority'))]
+percentiles = df_pr['Turnaround exc Weekend & Holidays'].quantile(0.85) 
+
+df_pr_turnaround = df_pr[df_pr['Turnaround exc Weekend & Holidays'] 
+                                    <= percentiles]
+
+df_pr_85turnaround_all = df_pr_turnaround['Turnaround exc Weekend & Holidays'].mean() 
+percentiles = df_pr.groupby('Username')['Turnaround exc Weekend & Holidays'].quantile(0.85).reset_index()
+
+pr_turnaround = pd.merge(df_pr, percentiles, on='Username', suffixes=('', '_cutoff'))
+
+pr_turnaround = pr_turnaround[pr_turnaround['Turnaround exc Weekend & Holidays'] 
+                              <= pr_turnaround['Turnaround exc Weekend & Holidays_cutoff']]
+
+pr_85turnaround_by_staff = pr_turnaround.groupby('Username')['Turnaround exc Weekend & Holidays'].mean().reset_index().round(2)
+
+
+today = date.today()
+print("Today date is: ", today)
+# Select row
+row = turnaround_all[['pr_85turnaround_all', 'cv_85turnaround_all', 
+                      'Ncv_85turnaround_all','Centene_85turnaround_all', '85All']].iloc[0]
+
+# Map index names to new label names
+label_map = {'pr_85turnaround_all': 'Priority',
+             'cv_85turnaround_all': 'Coverage',
+             'Ncv_85turnaround_all': 'Non-Coverage',
+             'Centene_85turnaround_all': 'Centene',
+             '85All': 'All'}
+
+new_labels = [label_map[label] for label in row.index]
+
+# Create barplot
+sns.set_style('whitegrid')
+plt.figure(figsize=(8, 6))
+ax = sns.barplot(x=new_labels, y=row.values, palette=['green', 'blue', 'orange', 'red'], alpha=0.8, 
+                 edgecolor='black', linewidth=1)
+
+ax.set_ylim(0, 4) #uncomment this line when scale needs to be adjusted
+#title = f'85% Turnaround by Type Q3' #uncomment this line when doing quarterly comparison
+# Set title and axis labels
+formatted_start_date=report_start_date.strftime('%b %d')
+formatted_end_date=report_end_date.strftime('%b %d')
+    
+title = f'85% Turnaround by Type ({formatted_start_date} to {formatted_end_date})'
+plt.title(title, fontsize=28, fontweight='bold', pad=30)
+plt.ylim(0, 14)
+plt.xlabel('')
+plt.ylabel('Days', fontsize=14)
+
+# Add data labels
+for i, v in enumerate(row.values):
+    ax.text(i, v, str(round(v, 2)), ha='center', va='bottom', fontweight='bold', fontsize=12)
+
+# Adjust bar width and spacing
+sns.despine(left=True)
+plt.subplots_adjust(top=0.85)
+plt.tight_layout()
+plt.xticks(rotation=45, ha='right')
+ax.set(xticklabels=new_labels)
+plt.setp(ax.get_xticklabels(), fontsize=16)
+
+# Show plot
+plt.show()
+
+#pie chart
+quarterly_goal=2
+num_rows_le_7 = len(df_cv_turnaround[df_cv_turnaround['Turnaround exc Weekend & Holidays'] <= quarterly_goal])
+num_rows_gt_7 = len(df_cv_turnaround[df_cv_turnaround['Turnaround exc Weekend & Holidays'] > quarterly_goal])
+
+# Create the donut chart
+colors = ['darkgreen', 'red']
+plt.figure(figsize=(4,4))
+plt.pie([num_rows_le_7, num_rows_gt_7], labels=['<='+str(quarterly_goal)+"'", '>'+str(quarterly_goal)], 
+        colors=colors, autopct='%1.1f%%', startangle=90, counterclock=False, wedgeprops={'width':0.7})
+# Add a circle to make it a donut chart
+centre_circle = plt.Circle((0,0),0.60,fc='white')
+fig = plt.gcf()
+fig.gca().add_artist(centre_circle)
+# Add a title
+plt.title('CV Turnaround Time')
+# Show the chart
+plt.show()
+
+# Writing to gsheet
+spreadsheet_key='1Vbs_ofoD0FcP_xxxx'
+#creds_file='xxxx7-1133c7e53dcb.json'
+scope = ['https://www.googleapis.com/auth/spreadsheets']  
+credentials = ServiceAccountCredentials.from_json_keyfile_name('./xxxx7-1133c7e53dcb.json', scope)
+wks_name = 'turnaround_all' 
+d2g.upload(turnaround_all, spreadsheet_key, wks_name, credentials=credentials, row_names=False)
+wks_name = 'cv_85turnaround_by_staff' 
+d2g.upload(cv_85turnaround_by_staff, spreadsheet_key, wks_name, credentials=credentials, row_names=False)
+wks_name = 'ncv_85turnaround_by_staff' 
+d2g.upload(ncv_85turnaround_by_staff, spreadsheet_key, wks_name, credentials=credentials, row_names=False)
+
