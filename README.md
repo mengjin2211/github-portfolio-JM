@@ -48,6 +48,8 @@ Program Coordinator        University of Calgary 					2013-2017
 ### Customer Request Analysis Model
 [Client Request Topic Analysis NLP](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/Customer%20Request%20Analysis%20NLP%20Model)   
 
-### Complex report automation flow
-•	 
-
+### Report automation flow
+The complex reports used to take 200+ hours to build, with this automation flow coupled with python data engineering scripts incorporated in the prep builder flow, we reduced it to less than 10 hours/report. 
+[Tableau Prep Builder](/assets/Tableau Prep Builder.png) 	 
+[Tableau Prep Builder with Py files](/assets/Tableau Prep Builder2.png) 	
+ 
