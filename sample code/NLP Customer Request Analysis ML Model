@@ -1,0 +1,28 @@
+The anlytics team helped the Operations team find out the "theme" of the client request reasons as we wanted to reduce them.
+
+The following ML project was completed to enhance client support.
+
+I'm unable to share the company script due to confidentiality agreements, but I can describe the projects I've worked on in general terms
+
+Data Loading and Preprocessing:
+
+Obtain data from customer portal.
+Ranking:
+The code creates a ranking for requests based on their creation dates within each package.
+It filters out the reason code 'FREE' and analyzes how many of them were issued as initial defects.
+
+Custom Request Reason Cluster:
+Text preprocessing is performed on the 'REASON_TEXT' column of this dataset, including removing unwanted characters, tokenization, stop-word removal, lemmatization, and stemming.
+
+BoW and TF-IDF models are created from the preprocessed text.
+Bag of Words is constructed using the Gensim library, and TF-IDF scores are calculated.
+Both models are prepared for further analysis.
+Latent Dirichlet Allocation (LDA) Model:
+
+LDA models are trained using both BoW and TF-IDF representations.
+Topics are extracted from the models, and each client request document is labeled with a topic.
+
+Performance Evaluation and Testing:
+Evaluate the performance of the LDA models by classifying sample documents into topics.
+It tests the models on an unseen document to predict its topic.
+ 
