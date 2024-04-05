@@ -22,8 +22,8 @@ Program Coordinator        University of Calgary 					2013-2017
 ### Machine Learning Projects
 •	Influx Analysis  
   -Based on historical influx data, I created ML model to forecast the future influxes for resource planning   
-![Time-Series Analysis of Influxes Using Prophet Machine Learning Model](/assets/Time Series Analysis ML Model.png)   
-[Time-Series Analysis Code](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/time-series%20analysis)  
+  ![Time-Series Analysis of Influxes Using Prophet Machine Learning Model](/assets/Time Series Analysis ML Model.png)   
+  [Time-Series Analysis Code](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/time-series%20analysis)  
 
 •	AI Applications\
  -Using LLM model APIs to conduct text analysis, semantic search, categorization and sumarization\
@@ -31,7 +31,10 @@ Program Coordinator        University of Calgary 					2013-2017
 •	NLP Project\
  
 ### Report Automation
-•	Time-Series Analysis of Influxes Using Prophet Machine Learning Model
+•	Turnaround Dashboard
+  - To enhance operations efficiency, I created the turnaround metrics and dashboard using python to benchmark performance
+    ![Turnaround Dashboard](/assets/Turnaround.png)   
+    [Turnaround Dashboard Code](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/time-series%20analysis)  
 •	NLP Project
 ### SQL Queries
 •	Time-Series Analysis of Influxes Using Prophet Machine Learning Model
