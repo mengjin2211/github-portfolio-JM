@@ -25,16 +25,16 @@ Program Coordinator        University of Calgary 					2013-2017
   ![Time-Series Analysis of Influxes Using Prophet Machine Learning Model](/assets/Time Series Analysis ML Model.png)   
   [Time-Series Analysis Code](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/time-series%20analysis)  
 
-•	AI Applications\
- -Using LLM model APIs to conduct text analysis, semantic search, categorization and sumarization\
+•	AI Applications  
+ -Using LLM model APIs to conduct text analysis, semantic search, categorization and sumarization  
 
-•	NLP Project\
+•	NLP Project  
  
 ### Report Automation
 •	Turnaround Dashboard
   - To enhance operations efficiency, I created the turnaround metrics and dashboard using python to benchmark performance
     ![Turnaround Dashboard](/assets/Turnaround.png)   
-    [Turnaround Dashboard Code](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/time-series%20analysis)  
+    [Turnaround Code](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/Turnaround%20Calculation%20Python%20Code%20Ingestion%20SQL%20DB)  
 •	NLP Project
 ### SQL Queries
 •	Time-Series Analysis of Influxes Using Prophet Machine Learning Model
