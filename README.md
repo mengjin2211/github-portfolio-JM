@@ -22,7 +22,8 @@ Program Coordinator        University of Calgary 					2013-2017
 ### Machine Learning Projects
 •	Influx Analysis  
   -Based on historical influx data, I created ML model to forecast the future influxes for resource planning   
-  ![Time-Series Analysis of Influxes Using Prophet Machine Learning Model](/assets/Time Series Analysis ML Model.png)   
+  ![Time-Series Analysis of Influxes Using Prophet Machine Learning Model](/assets/Time Series Analysis ML Model.png)  
+    
   [Time-Series Analysis Code](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/time-series%20analysis)  
 
 •	AI Applications  
