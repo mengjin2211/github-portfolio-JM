@@ -38,7 +38,7 @@ Program Coordinator        University of Calgary 					2013-2017
     
 ![Turnaround Dashboard](/assets/Turnaround.png)     
 
-### Report Automation-	Rubric Benchmark  
+### Rubric Benchmark  
 
 [Rubric Calculation Python Code](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/rubric%20calculation%20python%20code)    
     
@@ -48,8 +48,8 @@ Program Coordinator        University of Calgary 					2013-2017
 ### Customer Request Analysis Model
 [Client Request Topic Analysis NLP](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/Customer%20Request%20Analysis%20NLP%20Model)   
 
-### Report automation flow
-The complex reports used to take 200+ hours to build, with this automation flow coupled with python data engineering scripts incorporated in the prep builder flow, we reduced it to less than 10 hours/report. 
-[Tableau Prep Builder](/assets/Tableau Prep Builder.png) 	 
-[Tableau Prep Builder with Py files](/assets/Tableau Prep Builder2.png) 	
+### Report Automation Flow/Matrix
+Previously, the creation of complex reports demanded over 200 hours/per report of manual effort. By integrating an automation flow and employing Python data scripts within our preparation builder flow, we've streamlined the process to under 10 hours per report. This enhancement not only accelerates our reporting speed but also significantly augments our capacity to deliver actionable business insights, empowering us to drive impactful institutional campaigns.     
+![Tableau Prep Builder](/assets/Tableau Prep Builder.png) 	 
+![Tableau Prep Builder with Py files](/assets/Tableau Prep Builder2.png) 	
  
