@@ -49,10 +49,12 @@ Program Coordinator        University of Calgary 					2013-2017
 [Client Request Topic Analysis NLP](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/Customer%20Request%20Analysis%20NLP%20Model)   
 
 ### Report Automation Matrix
-Creating complex reports used to take over 200 hours per report, resulting in backlogs. By integrating an automation flow and employing Python data scripts within our Tableau Prep builder flow, we've streamlined the process to a couple of hours. This enhancement not only accelerates our reporting speed but also significantly augments our capacity to drive impactful institutional campaigns. (Images used are for illustrative purposes only)    
+- Creating complex reports used to take over 200 hours per report, resulting in backlogs. By integrating an automation flow and employing Python data scripts within our Tableau Prep builder flow, we've streamlined the process to a couple of hours.
+- This enhancement not only accelerates our reporting speed but also significantly augments our capacity to drive impactful institutional campaigns. (Images used are for illustrative purposes only)    
 ![Tableau Prep Builder](/assets/Tableau Prep Builder.png) 	 
 ![Tableau Prep Builder with Py files](/assets/Tableau Prep Builder2.png)   	
 
-### Other Data Projects including Big Data, Data Engineering, ETL, Machine Learning and Data Science
+### Other Data Projects 
+ - Big Data, Data Engineering, ETL, Machine Learning and Data Science etc.
 [Sample Data Projects by JM](https://github.com/mengjin2211/sample-work)
 
