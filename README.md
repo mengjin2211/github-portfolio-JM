@@ -43,10 +43,10 @@ Program Coordinator        University of Calgary 					2013-2017
 [Rubric Calculation Python Code](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/rubric%20calculation%20python%20code)    
     
 ### Process Automation - postgreSQL Functions
-[Recursive CTE]( )   
+[Recursive CTE & SQL SP](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/SQL%20Automation)   
 
-### Customer Analysis Machine Learning Model
-[Client Request Topic Analysis NLP](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/rubric%20calculation%20python%20code)   
+### Customer Request Analysis Model
+[Client Request Topic Analysis NLP](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/Customer%20Request%20Analysis%20NLP%20Model)   
 
 ### Complex report automation flow
 •	 
