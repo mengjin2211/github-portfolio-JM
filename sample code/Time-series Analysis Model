@@ -40,7 +40,7 @@ conn = psycopg2.connect(
 ) 
 # skipping the sql queries here....
 
-# split data
+# data prep and split
 df2=influx.copy()
 df2['Week'] = pd.to_datetime(df2['Week'])
 df2.sort_values(by='Week', inplace=True)
@@ -48,9 +48,8 @@ df2['Year'] = df2['Week'].dt.year
 df2['Month'] = df2['Week'].dt.month
 df2['Influx'] = pd.to_numeric(df2['Influx'], errors='coerce')
 df2.rename(columns={'Week': 'ds', 'Influx': 'y'}, inplace=True)
-train = df2[df2['Year'] < 2023]
-#train = df2[(df2['Year'] >= 2020) & (df2['Year'] < 2023)]
-test = df2[df2['Year'] >= 2023]
+train = df2[df2['Year'] < xxx]
+test = df2[df2['Year'] >= xxxx]
 train_color = 'blue'
 train_label = 'Train Data'
 
@@ -139,8 +138,8 @@ def validation(train, test):
                 "\nRoot Mean Squared Error for test (RMSE):", test_rmse)
     return test_pred
 
-start_date = '2023-01-01'   
-end_date='2024-01-15'
+start_date = 'xxx'   
+end_date='xxx'
 selected_test = test[(test['ds'] >= start_date) & (test['ds'] <= end_date)]
 selected_test_pred = test_pred[(test_pred['ds'] >= start_date) & (test_pred['ds'] <= end_date)]
 
