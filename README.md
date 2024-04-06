@@ -55,19 +55,18 @@ Program Coordinator        University of Calgary 					2013-2017
 - Augments our capacity to drive impactful institutional campaigns.    
 
 ![Tableau Prep Builder](/assets/Tableau Prep Builder.png) 	  	
- - Images used are for illustrative purposes only https://community.tableau.com/s/idea/0874T000000HBqiQAG/detail 
+ - Images used are for illustrative purposes only 
 
 ### SQL Function Cluster   
 [Client Attribute Bulk Processing Function Cluster](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/SQL%20Function%20Cluster)  
 
 ### Stock   
-[Stock Analysis](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/Stock%20(2).ipynb)  
-
+[Stock Analysis Python Code](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/Stock%20(2).ipynb)  
 ![Stock](/assets/stock.png)  
 
 ### Alumni Dashboard   
 ![Alumni Bubble Chart](/assets/Alumni.png)  
- - Images used are for illustrative purposes only: https://images.app.goo.gl/Aut3iESgz8GomMkR8  
+ - Images used are for illustrative purposes only   
 
 ### Other Projects 
  - Big Data, Data Engineering, ETL, Machine Learning, and Data Science        
