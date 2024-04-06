@@ -1,4 +1,4 @@
-# Data Manager  
+# Data Engineer Manager  
 [LinkedIn](https://www.linkedin.com/in/jin-meng-29830673/)
 
 ## Work Experience
@@ -9,15 +9,15 @@ Senior Programs Specialist University of Calgary 					2017-2020 \
 Program Coordinator        University of Calgary 					2013-2017 
  
 ## Education and Certifications
+•	IBM Data Engineering Certificate \
+•	IBM Data Warehouse Engineer Certificate
 •	MA (U of Electronic Science & Tech) \
 •	Business Intelligence & Analytics Certificate (University of Calgary) \
 •	Database Administration Certificate (University of Calgary) \
 •	IBM Data Science Professional Certificate \
-•	IBM Data Engineering Certificate \
 •	Microsoft Azure DP-900 \
 •	Microsoft Azure AZ-900  \
 •	Machine Learning Certificate \
-•	IBM Data Warehouse Engineer Certificate 
 
 ## Projects
 ### Influx Analysis Machine Learning Model
@@ -55,10 +55,13 @@ Program Coordinator        University of Calgary 					2013-2017
 ![Tableau Prep Builder](/assets/Tableau Prep Builder.png) 	 
 ![Tableau Prep Builder with Py files](/assets/Tableau Prep Builder2.png)     	
 
+### Automation SQL Function Cluster   
+[Client Attribute Bulk Processing Function Cluster](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/SQL%20Function%20Cluster) 
+
 ### Other Projects 
  - Big Data, Data Engineering, ETL, Machine Learning and Data Science      
 [Sample Data Projects by JM](https://github.com/mengjin2211/sample-work)  
 
 ### Conclusion  
-Thank you for exploring my project portfolio. Each project listed here represents innovation, exploration, and growth. With hands-on data skills, I have successfully driven technical and process innovation to increase efficiency of the data workflow and the ability to make data driven decisions. Many of my projects (not listed) are private due to their nature. Feel free to reach out to me about questions, suggestions and opportunities.  
+Thank you for exploring my project portfolio. With hands-on data skills, I have successfully driven technical and process innovation to increase efficiency of the data workflow and the ability to make data driven decisions. Many of my projects are not listed here due to private nature but feel free to reach out to me about questions, suggestions and opportunities.  
 
