@@ -52,10 +52,10 @@ Program Coordinator        University of Calgary 					2013-2017
 
 ### Report Automation Matrix
 - Integrating an sql and Python data scripts within our Tableau Prep builder flow has streamlined the process, reducing reporting time from 200 to a couple of hours.  
-- Augments our capacity to drive impactful institutional campaigns. (Images used are for illustrative purposes only)    
+- Augments our capacity to drive impactful institutional campaigns.    
 
-![Tableau Prep Builder](/assets/Tableau Prep Builder.png) 	 
-![Tableau Prep Builder with Py files](/assets/Tableau Prep Builder2.png)     	
+![Tableau Prep Builder](/assets/Tableau Prep Builder.png) 	  	
+ - Images used are for illustrative purposes only https://community.tableau.com/s/idea/0874T000000HBqiQAG/detail 
 
 ### SQL Function Cluster   
 [Client Attribute Bulk Processing Function Cluster](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/SQL%20Function%20Cluster)  
