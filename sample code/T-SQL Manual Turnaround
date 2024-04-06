@@ -1,0 +1,213 @@
+declare @report_end_date date = dateadd (d, -1, getdate())																			
+declare @report_start_date date = dateadd (year, -1, @report_end_date)																			
+declare @current_date date = getdate()																			
+declare @run_date date																			
+declare @run_date_6 date																			
+declare @run_date_90 date																			
+declare @fiscal_year varchar(4)																			
+declare @fiscal_year_start_date varchar(10)																			
+declare @calculation_period_start varchar(100)																			
+declare @sql_full nvarchar(max)																			
+declare @sql_oq nvarchar(max)																			
+																			
+drop table if exists #report_res																			
+create table #report_res(																			
+REPORT_DATE     date,																			
+SL_COUNT      int, 																			
+SC_COUNT		int, 																	
+SA_COUNT		int, 																	
+SP_COUNT		int, 																	
+SM_COUNT		int, 																	
+AVG_SL_TIME	numeric(18,2), 																		
+AVG_SC_TIME	numeric(18,2), 																		
+AVG_SA_TIME	numeric(18,2), 																		
+AVG_SP_TIME	numeric(18,2), 																		
+AVG_SM_TIME	numeric(18,2), 																		
+AVG_SP		numeric(18,2), 																	
+AVG_SA		numeric(18,2), 																	
+AVG_SL_YTD	numeric(18,2), 																		
+AVG_SC_YTD	numeric(18,2), 																		
+AVG_SA_YTD	numeric(18,2), 																		
+AVG_SP_YTD	numeric(18,2), 																		
+AVG_SM_YTD	numeric(18,2)																		
+)																			
+																			
+																			
+set @run_date = (SELECT max(datetime_code) from [dbo].Dim_Date b  where datetime_code <																			
+																			
+																			
+																			
+																			
+set @run_date_6 = dateadd(day, -6, @run_date)																			
+set @run_date_90 = dateadd(day, -90, @run_date)																			
+																			
+--Fiscal year is from April to March the following year																			
+set @fiscal_year = year(dateadd(month,-((datepart(month,@current_date)+8) %12),@current_date)) ;																			
+set @fiscal_year_start_date = @fiscal_year +'-04-01'																			
+																			
+--if current month is April, May, June, then calculate the last 90 days, else calculate the full year																			
+if datepart(month,@run_date) in (4,5,6)																			
+	begin																		
+		set @calculation_period_start =  dateadd (d, -90, @run_date)																	
+	end																		
+else																			
+	begin																		
+		set @calculation_period_start = convert (date, @fiscal_year_start_date)																	
+	end																		
+																			
+set @sql_oq = '																			
+select ''''' +cast(@run_date as varchar(50))+ ''''' AS REPORT_DATE, * from																			
+																			
+	(																		
+	SELECT																		
+	COALESCE(SUM(CASE WHEN TMP.TP_CODE = ''''SL'''' THEN 1 ELSE 0 END),0) AS SL_COUNT,																		
+	COALESCE(SUM(CASE WHEN TMP.TP_CODE = ''''SC'''' THEN 1 ELSE 0 END),0) AS SC_COUNT,																		
+	COALESCE(SUM(CASE WHEN TMP.TP_CODE = ''''SA'''' THEN 1 ELSE 0 END),0) AS SA_COUNT,																		
+	COALESCE(SUM(CASE WHEN TMP.TP_CODE = ''''SP'''' THEN 1 ELSE 0 END),0) AS SP_COUNT,																		
+	COALESCE(SUM(CASE WHEN TMP.TP_CODE = ''''SM'''' THEN 1 ELSE 0 END),0) AS SM_COUNT																		
+	FROM (																		
+		SELECT																	
+		V_TR.ID AS TR_ID,																	
+		CASE WHEN V_QUEUE.SR_TYPE = ''''APPLN'''' THEN ''''SA''''																	
+			 WHEN V_QUEUE.SR_SUB_TYPE = ''''CG'''' THEN ''''SC''''																
+			 WHEN V_QUEUE.SR_SUB_TYPE = ''''MO'''' THEN ''''SM''''																
+			 WHEN (V_BACKLOG REQSUBTY.WFCAT_CODE IN (''''E'''',''''F'''') AND V_QUEUE.SR_SUB_TYPE <> ''''MLPH91HF'''') THEN ''''SP''''																
+			 ELSE ''''SL'''' END AS TP_CODE																
+		FROM V_TR																	
+		INNER JOIN V_QUEUE ON V_QUEUE.ID = V_TR.SR_ID																	
+		INNER JOIN V_BACKLOG REQSUBTY ON V_QUEUE.SR_SUB_TYPE = V_BACKLOG REQSUBTY.CODE																	
+		INNER JOIN (																	
+					SELECT View_TK.TR_ID														
+					FROM View_TK														
+					WHERE View_TK.STATE_CODE IN (''''COMPLETED'''',''''PENDING'''',''''RETURN'''',''''InProgress'''',''''FAIL'''',''''REJECT'''')														
+					GROUP BY View_TK.TR_ID														
+					HAVING MIN(date( View_TK.ENTER_DATE)) BETWEEN ''''' +cast(@run_date_6 as varchar(50))+ ''''' AND ''''' +cast(@run_date as varchar(50))+ '''''														
+					) AS A ON A.TR_ID = V_TR.ID														
+		WHERE V_QUEUE.DELETED_IND = ''''N'''' AND date(V_TR.DATE_UPDATED) >= ''''' +cast(@run_date_6 as varchar(50))+ '''''																	
+		) AS TMP																	
+	)																		
+																			
+	inner join																		
+																			
+	(																		
+	SELECT																		
+	COALESCE(AVG(CASE WHEN TP_CODE = ''''SL'''' THEN ELAPSE_TIME ELSE NULL END),0) AS AVG_SL_TIME,																		
+	COALESCE(AVG(CASE WHEN TP_CODE = ''''SC'''' THEN ELAPSE_TIME ELSE NULL END),0) AS AVG_SC_TIME,																		
+	COALESCE(AVG(CASE WHEN TP_CODE = ''''SA'''' THEN ELAPSE_TIME ELSE NULL END),0) AS AVG_SA_TIME,																		
+	COALESCE(AVG(CASE WHEN TP_CODE = ''''SP'''' THEN ELAPSE_TIME ELSE NULL END),0) AS AVG_SP_TIME,																		
+	COALESCE(AVG(CASE WHEN TP_CODE = ''''SM'''' THEN ELAPSE_TIME ELSE NULL END),0) AS AVG_SM_TIME,																		
+	COALESCE(AVG(CASE WHEN TP_CODE in (''''SP'''',''''SL'''') THEN ELAPSE_TIME ELSE NULL END),0) AS AVG_SP,																		
+	COALESCE(AVG(CASE WHEN TP_CODE in (''''SA'''',''''SC'''',''''SM'''') THEN ELAPSE_TIME ELSE NULL END),0) AS AVG_SA																		
+	FROM																		
+	    (																		
+		SELECT 1.0 * RANK() OVER (PARTITION BY TP_CODE ORDER BY ELAPSE_TIME ASC)/COUNT(*) OVER (PARTITION BY TP_CODE) AS PERCENTILE, *																	
+		FROM (																	
+				SELECT															
+				V_TR.ID AS TR_ID,															
+				A.DATE_FIRST_AD,															
+				CASE 															
+					WHEN V_QUEUE.SR_TYPE = ''''APPLN'''' THEN ''''SA''''														
+					WHEN V_QUEUE.SR_SUB_TYPE = ''''CG'''' THEN ''''SC''''														
+					WHEN V_QUEUE.SR_SUB_TYPE = ''''MO'''' THEN ''''SM''''														
+					WHEN (V_BACKLOG REQSUBTY.WFCAT_CODE IN (''''E'''',''''F'''') AND V_QUEUE.SR_SUB_TYPE <> ''''MLPH91HF'''') THEN ''''SP''''														
+					ELSE ''''SL'''' END AS TP_CODE,														
+				SUM( View_TK.DURATION) AS ELAPSE_TIME															
+				FROM V_TR															
+				INNER JOIN V_QUEUE ON V_QUEUE.ID = V_TR.SR_ID															
+				INNER JOIN V_BACKLOG REQSUBTY ON V_QUEUE.SR_SUB_TYPE = V_BACKLOG REQSUBTY.CODE															
+				INNER JOIN View_TK ON V_TR.ID = View_TK.TR_ID															
+				INNER JOIN (															
+							SELECT View_TK.TR_ID, MIN( View_TK.ENTER_DATE) AS DATE_FIRST_AD												
+							FROM View_TK												
+							WHERE View_TK.STATE_CODE IN (''''COMPLETED'''',''''PENDING'''',''''RETURN'''',''''InProgress'''',''''FAIL'''',''''REJECT'''')												
+							GROUP BY View_TK.TR_ID												
+							HAVING MIN(date( View_TK.ENTER_DATE)) BETWEEN ''''' +cast(@run_date_90 as varchar(50))+ ''''' AND ''''' +cast(@run_date as varchar(50))+ '''''												
+							) AS A ON A.TR_ID = V_TR.ID												
+				WHERE V_QUEUE.DELETED_IND = ''''N'''' AND date(V_TR.DATE_UPDATED) >= ''''' +cast(@run_date_90 as varchar(50))+ '''''															
+				GROUP BY V_TR.ID,		…													
+																			
+			) AS TMP																
+	    ) 																		
+	where PERCENTILE <= 0.95 																		
+																			
+	) 																		
+																			
+	on 1 = 1																		
+																			
+	inner join 																		
+																			
+	(																		
+	SELECT 																		
+	COALESCE(AVG(CASE WHEN TP_CODE = ''''SL'''' THEN ELAPSE_TIME ELSE NULL END),0) AS AVG_SL_YTD, 																		
+	COALESCE(AVG(CASE WHEN TP_CODE = ''''SC'''' THEN ELAPSE_TIME ELSE NULL END),0) AS AVG_SC_YTD,																		
+	COALESCE(AVG(CASE WHEN TP_CODE = ''''SA'''' THEN ELAPSE_TIME ELSE NULL END),0) AS AVG_SA_YTD,																		
+	COALESCE(AVG(CASE WHEN TP_CODE = ''''SP'''' THEN ELAPSE_TIME ELSE NULL END),0) AS AVG_SP_YTD,																		
+	COALESCE(AVG(CASE WHEN TP_CODE = ''''SM'''' THEN ELAPSE_TIME ELSE NULL END),0) AS AVG_SM_YTD																		
+	FROM 																		
+	    (																		
+		SELECT 1.0 * RANK() OVER (PARTITION BY TP_CODE ORDER BY ELAPSE_TIME ASC)/COUNT(*) OVER (PARTITION BY TP_CODE) AS PERCENTILE, *																	
+	    FROM 																		
+	       ( 																		
+			SELECT																
+			V_TR.ID AS TR_ID,																
+			A.DATE_FIRST_AD,																
+			CASE 																
+				WHEN V_QUEUE.SR_TYPE = ''''APPLN'''' THEN ''''SA''''															
+				WHEN V_QUEUE.SR_SUB_TYPE = ''''CG'''' THEN ''''SC''''															
+				WHEN V_QUEUE.SR_SUB_TYPE = ''''MO'''' THEN ''''SM''''															
+				WHEN (V_BACKLOG REQSUBTY.WFCAT_CODE IN (''''E'''',''''F'''') AND V_QUEUE.SR_SUB_TYPE <> ''''MLPH91HF'''') THEN ''''SP''''															
+			    ELSE ''''SL'''' END AS TP_CODE,																
+			SUM( View_TK.DURATION) AS ELAPSE_TIME																
+	        FROM V_TR																		
+			INNER JOIN V_QUEUE ON V_QUEUE.ID = V_TR.SR_ID																
+			INNER JOIN V_BACKLOG REQSUBTY ON V_QUEUE.SR_SUB_TYPE = V_BACKLOG REQSUBTY.CODE																
+			INNER JOIN View_TK ON V_TR.ID = View_TK.TR_ID																
+			INNER JOIN (																
+			            SELECT View_TK.TR_ID, MIN( View_TK.ENTER_DATE) AS DATE_FIRST_AD																
+						FROM View_TK													
+						WHERE View_TK.STATE_CODE IN (''''COMPLETED'''',''''PENDING'''',''''RETURN'''',''''InProgress'''',''''FAIL'''',''''REJECT'''')													
+						GROUP BY View_TK.TR_ID													
+						HAVING MIN(date( View_TK.ENTER_DATE)) BETWEEN ''''' +cast(@calculation_period_start as varchar(50))+ ''''' AND ''''' +cast(@run_date as varchar(50))+ ''''' 													
+						) AS A ON A.TR_ID = V_TR.ID													
+	        WHERE V_QUEUE.DELETED_IND = ''''N'''' AND date(V_TR.DATE_UPDATED) >= ''''' +cast(@calculation_period_start as varchar(50))+ '''''																		
+	        GROUP BY V_TR.ID,																		
+					 A.DATE_FIRST_AD,														
+					 V_TR.DATE_UPDATED,														
+					 V_QUEUE.SR_TYPE,														
+					 V_QUEUE.SR_SUB_TYPE,														
+					 V_BACKLOG REQSUBTY.WFCAT_CODE														
+			 )	 															
+	    ) 																		
+	where PERCENTILE <= 0.95																		
+    )																			
+																			
+	on 1 = 1																		
+																			
+For Fetch only with ur;																			
+'																			
+set @sql_full = 'select * from OPENQUERY (DBG1B, ''' + @sql_oq + ''')'																			
+																			
+insert into #report_res(																			
+REPORT_DATE     ,																			
+SL_COUNT      , 																			
+SC_COUNT		, 																	
+SA_COUNT		, 																	
+SP_COUNT		, 																	
+SM_COUNT		, 																	
+AVG_SL_TIME	, 																		
+AVG_SC_TIME	, 																		
+AVG_SA_TIME	, 																		
+AVG_SP_TIME	, 																		
+AVG_SM_TIME	, 																		
+AVG_SP		, 																	
+AVG_SA		, 																	
+AVG_SL_YTD	, 																		
+AVG_SC_YTD	, 																		
+AVG_SA_YTD	, 																		
+AVG_SP_YTD	, 																		
+AVG_SM_YTD	)																		
+																			
+--print @sql_full																			
+exec sp_executesql @sql_full																			
+																			
+select * from #report_res																			
