@@ -1,4 +1,5 @@
-# back to the portfolio  https://mengjin2211.github.io/github-portfolio-JM/
+# Created turnaround dashboard using Python Matplot and Seaborn library, integrating Turnaround SQL script to create automation dashboard.
+# The Turnaround Calculation SQL script is the input data source for this flow. https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/SQL%20Turnaround%20Calculation
 
 import pandas as pd
 import os
