@@ -1,0 +1,161 @@
+with allresults as																
+(																
+SELECT																
+ version.id AS  versionid,																
+ version.pageid,																
+page.linkalias as Policy,																
+message.messagetime,																
+message.messages,																
+messagecreator.Name AS employee_Name,																
+page.pagefamily as group,																
+page.clusterid,																
+ versionrev.id AS  versionrevid,																
+ versionrev.start_time,																
+		DATE( versionrev.start_time) AS date,														
+ versionrev.verified,																
+																
+STRING_AGG(distinct association.associationname,',') as association,																
+JSONB_AGG( distinct pagetype_f.id) AS pagetype_fid,																
+JSONB_AGG(distinct layer.layername) as layername,																
+layer.layername AS cat,																
+	string_agg(	distinct														
+layer.sublayername, ','																
+) AS sattrib																
+,string_agg(layer.sssublayername, ','																
+) AS sssattrib																
+FROM  versionrev																
+left JOIN  version ON  versionrev. versionid =  version.id																
+left JOIN resource ON  version.resourceid = resource.id																
+LEFT JOIN message ON  versionrev.id = message. versionrevid																
+JOIN page ON COALESCE(message.pageid,  version.pageid) = page.id																
+left JOIN page_class ON page.id = page_class.pageid																
+left JOIN layer ON page_class.classid = layer.id																
+left JOIN page_association ON page.id = page_association.pageid																
+left JOIN association ON page_association.associationid = association.id																
+LEFT JOIN (																
+linkedit_pagetype																
+JOIN pagetype AS pagetype_edit ON linkedit_pagetype.pagetypeid = pagetype_edit.id																
+) ON message.id = linkedit_pagetype.linkeditid																
+LEFT JOIN (																
+f_pagetype																
+JOIN pagetype AS pagetype_f ON f_pagetype.pagetypeid = pagetype_f.id																
+) ON page.id = f_pagetype.linkid																
+LEFT JOIN PClusterON layer.id = PClassInherit.classid																
+LEFT JOIN ClientTable AS messagecreator ON message.messagecreatorid = messagecreator.id																
+LEFT JOIN ClientTable AS internalmessage_creator ON message.internalmessage_creatorid = internalmessage_creator.id																
+WHERE																
+	layer.attributeid <> 59															
+AND  versionrev.EndTime IS NULL																
+AND association.invisible = 0																
+AND association.EndTime IS NULL																
+	and layer.sublayername not in ('Product LD Pages',															
+Product N Active LDes',																
+News & Announcement LD Pages',																
+Payment LD Pages')																
+AND association.associationname not IN(' 																
+…																
+ )																
+group by  version.id,																
+ version.pageid,																
+page.linkalias,																
+message.id ,																
+page.pagefamily,																
+page.clusterid,																
+ versionrev.id,																
+ versionrev.start_time,																
+		DATE( versionrev.start_time),														
+ versionrev.verified,																
+message.messages,																
+message.messagetime,																
+message.internalmessage_,																
+message.internalmessage_time::DATE,																
+messagecreator.Name,																
+internalmessage_creator.Name																
+	,layer.layername															
+) ,																
+first_rev as (																
+select pageid,  versionid,	 versionrev.id as  versionrevid															
+,RANK() OVER (partition by pageid ORDER BY start_time ASC,  versionrev.id ASC	) AS rev															
+,count (*) OVER (PARTITION BY pageid)																
+from  versionrev																
+join  version on  versionrev. versionid =  version.id )																
+																
+																
+select																
+case when ((sssattrib like'%Draft%') or 																
+allresults.pageid in																
+( …																
+)																
+then 'Priority'																
+when (sattrib like '%Cov%') then 'Cov'																
+when sattrib ='N Active LDes'then 'NTI'																
+when sattrib like '%FM%'then 'FM'																
+when sattrib like '%RB%' then 'RB' 																
+when sattrib like '%GL%' then 'GL'																
+else 'other' end as types																
+,association as Asso,																
+allresults.pageid, allresults. versionid, policy 																
+,max(date) ::date as "latest  tr date"																
+,messagetime::date --,messages																
+,age (CURRENT_DATE, date) as turnaround_calendardays																
+																
+,  																
+ (WITH calendar AS (																
+    SELECT generate_series(max(date)::date, CURRENT_DATE::date, '1 day') as the_day																
+  ),																
+  holidays AS (																
+	    SELECT '2022-01-03'::date as holiday_date UNION															
+    SELECT '2022-02-21'::date as holiday_date UNION																
+    SELECT '2022-04-15'::date as holiday_date UNION																
+	SELECT '2022-05-23'::date as holiday_date UNION															
+	SELECT '2022-05-30'::date as holiday_date UNION															
+	SELECT '2022-06-24'::date as holiday_date UNION															
+	SELECT '2022-07-01'::date as holiday_date UNION															
+	SELECT '2022-07-04'::date as holiday_date UNION															
+	SELECT '2022-08-01'::date as holiday_date UNION															
+	SELECT '2022-09-05'::date as holiday_date UNION															
+	SELECT '2022-10-10'::date as holiday_date UNION															
+	SELECT '2022-11-11'::date as holiday_date UNION															
+	SELECT '2022-11-24'::date as holiday_date UNION															
+	SELECT '2022-12-26'::date as holiday_date UNION															
+	SELECT '2022-12-27'::date as holiday_date UNION  															
+	  															
+    SELECT '2023-01-02'::date as holiday_date UNION																
+    SELECT '2023-02-20'::date as holiday_date UNION																
+    SELECT '2023-04-07'::date as holiday_date UNION																
+	SELECT '2023-05-22'::date as holiday_date UNION															
+	SELECT '2023-05-29'::date as holiday_date UNION															
+	SELECT '2023-06-19'::date as holiday_date UNION															
+	SELECT '2023-06-26'::date as holiday_date UNION															
+	SELECT '2023-07-03'::date as holiday_date UNION															
+	SELECT '2023-07-04'::date as holiday_date UNION															
+	SELECT '2023-08-07'::date as holiday_date UNION															
+	SELECT '2023-09-04'::date as holiday_date UNION															
+	SELECT '2023-10-09'::date as holiday_date UNION															
+	SELECT '2023-11-13'::date as holiday_date UNION															
+	  SELECT '2023-11-23'::date as holiday_date UNION															
+	SELECT '2023-12-25'::date as holiday_date UNION															
+	SELECT '2023-12-26'::date as holiday_date  															
+  )																
+  SELECT count(the_day )as turnaround_weekdays 																
+  FROM calendar																
+  LEFT JOIN holidays ON the_day = holiday_date																
+  WHERE holiday_date IS NULL AND extract('dow' from the_day) NOT IN (0, 6)) as turnaround_days																
+,employee_Name																
+																
+from																
+allresults																
+join first_rev on																
+first_rev. versionrevid=allresults. versionrevid																
+																
+where																
+allresults.verified = 'true'																
+AND allresults.cat like 'LD Pages'																
+and date >= '2022-12-17'																
+and messages is  null																
+and first_rev.rev>1																
+group by allresults.sattrib, association, allresults.pageid, allresults. versionid, policy, 																
+messagetime ,age (CURRENT_DATE, date),employee_Name , sssattrib , messages																
+order by "latest  tr date"																
+																
+																
