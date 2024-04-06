@@ -1,0 +1,534 @@
+# postgreSQL function clusters that perform complex automation task eliminating manual efforts and enabling bulk uploading 
+
+/*attribute_user function*/														
+drop function if exists public.attribute_users_;														
+														
+CREATE OR REPLACE FUNCTION public.attribute_users_(														
+	new_attrib integer,													
+	existing_attrib integer,													
+	new_attrib_level text)													
+    RETURNS table (id integer,    														
+				   FName text,										
+				   LName text,										
+				   ULabel text,										
+  				   ContactInfo text,										
+				   Association text,										
+				   highest_blank_level text,										
+				   attributechosen integer[], 										
+				   subattributechosen integer[], 										
+				   ssubattributechosen integer[],										
+				   sssubattributechosen integer[],										
+				   AssociationFilter bigint,										
+				   attributeFilter bigint,										
+				   ImportClientFilter bigint										
+				  )										
+    LANGUAGE 'plpgsql'														
+    COST 100														
+    IMMUTABLE STRICT PARALLEL SAFE 														
+														
+  														
+AS $BODY$														
+begin														
+if new_attrib_level='attribute' then														
+			return query 											
+				 select 										
+				 	distinct v.clientid, 									
+					d.FName,									
+					d.LName,									
+	 				d.ULabel,									
+					case when d.ULabel like '%@%' then d.ULabel									
+					else ''									
+					end as ContactInfo									
+ 					,Assoc.name as Association									
+					, 	case when d.attributechosen is null then 'attrib_blank' 								
+						when d.subattributechosen is null and d.attributechosen is not null then 'subattrib_blank' 								
+						when d.ssubattributechosen is null and d.subattributechosen is not null then 'ssubattrib_blank' 								
+						when d.sssubattributechosen is null and d.ssubattributechosen is not null then 'sssubattrib_blank'								
+						when d.sssubattributechosen is not null then 'all_level_populated'								
+						end	 							
+						as highest_blank_level								
+														
+					,d.attributechosen, d.subattributechosen, d.ssubattributechosen, d.sssubattributechosen									
+					,DENSE_RANK() OVER (ORDER BY Assoc.name asc) AS AssociationFilter,									
+					DENSE_RANK() OVER (ORDER BY d.attributechosen||d.subattributechosen||d.ssubattributechosen||d.sssubattributechosen asc) AS attributeFilter									
+					,DENSE_RANK() OVER (ORDER BY Assoc.name,d.attributechosen||d.subattributechosen||d.ssubattributechosen||d.sssubattributechosen asc) AS ImportClientFilter									
+					from clients	d	 							
+					join attribute_view v on d.id=v.clientid 									
+					join Assoc on d.Associd = Assoc.id 									
+					where 									
+						v.clientid in 								
+								(						
+								select distinct d.clientid 						
+								from						
+								public.attribute_view d						
+														
+								where d.attributeid && array[existing_attrib] 						
+														
+								)						
+						and v.clientid not in								
+								(						
+								select distinct clientid 						
+								from						
+								public.attribute_view n						
+								where n.attributeid && array[new_attrib] 						
+														
+								)						
+														
+			and d.dtime is null 											
+			order by ImportClientFilter,AssociationFilter,attributeFilter asc;											
+														
+elseif new_attrib_level='subattribute' then														
+return query 														
+	 		 select 											
+				 	distinct v.clientid, 									
+					d.FName,									
+					d.LName,									
+	 				d.ULabel,									
+					case when d.ULabel like '%@%' then d.ULabel									
+					else ''									
+					end as ContactInfo									
+ 					,Assoc.name as Association									
+					, 	case when d.attributechosen is null then 'attrib_blank' 								
+						when d.subattributechosen is null and d.attributechosen is not null then 'subattrib_blank' 								
+						when d.ssubattributechosen is null and d.subattributechosen is not null then 'ssubattrib_blank' 								
+						when d.sssubattributechosen is null and d.ssubattributechosen is not null then 'sssubattrib_blank'								
+						when d.sssubattributechosen is not null then 'all_level_populated'								
+						end	 							
+						as highest_blank_level								
+														
+					,d.attributechosen, d.subattributechosen, d.ssubattributechosen,d.sssubattributechosen									
+					,DENSE_RANK() OVER (ORDER BY Assoc.name asc) AS AssociationFilter,									
+					 DENSE_RANK() OVER (ORDER BY d.attributechosen||d.subattributechosen||d.ssubattributechosen||d.sssubattributechosen asc) AS attributeFilter									
+					,DENSE_RANK() OVER (ORDER BY Assoc.name,d.attributechosen||d.subattributechosen||d.ssubattributechosen||d.sssubattributechosen asc) AS ImportClientFilter									
+					from clients	d	 							
+					join attribute_view v on d.id=v.clientid 									
+					join Assoc on d.Associd = Assoc.id 									
+					where 									
+						v.clientid in 								
+					(									
+														
+						select distinct o.clientid 								
+						from								
+						public.attribute_view o								
+						where o.subattributeid && array[existing_attrib] 								
+														
+					)									
+			and v.clientid not in											
+					(									
+							select distinct p.clientid 							
+									from					
+									public.attribute_view p					
+							where p.subattributeid && array[new_attrib] 							
+														
+					)									
+														
+			and d.dtime is null											
+			order by ImportClientFilter,AssociationFilter,attributeFilter asc;											
+														
+														
+elseif new_attrib_level='ssubattribute' then														
+			return query 											
+				  select 										
+				 	distinct v.clientid,									
+					d.FName,									
+					d.LName,									
+	 				d.ULabel,									
+					case when d.ULabel like '%@%' then d.ULabel									
+					else ''									
+					end as ContactInfo									
+ 					,Assoc.name as Association									
+					, 	case when d.attributechosen is null then 'attrib_blank' 								
+						when d.subattributechosen is null and d.attributechosen is not null then 'subattrib_blank' 								
+						when d.ssubattributechosen is null and d.subattributechosen is not null then 'ssubattrib_blank' 								
+						when d.sssubattributechosen is null and d.ssubattributechosen is not null then 'sssubattrib_blank'								
+						when d.sssubattributechosen is not null then 'all_level_populated'								
+						end	 							
+						as highest_blank_level								
+														
+					,d.attributechosen, d.subattributechosen, d.ssubattributechosen,d.sssubattributechosen									
+					,DENSE_RANK() OVER (ORDER BY Assoc.name asc) AS AssociationFilter,									
+					DENSE_RANK() OVER (ORDER BY d.attributechosen||d.subattributechosen||d.ssubattributechosen||d.sssubattributechosen asc) AS attributeFilter									
+					,DENSE_RANK() OVER (ORDER BY Assoc.name,d.attributechosen||d.subattributechosen||d.ssubattributechosen||d.sssubattributechosen asc) AS ImportClientFilter									
+					from clients	d	 							
+					join Assoc on d.Associd = Assoc.id 									
+					join attribute_view v on d.id=v.clientid 									
+					where 									
+						v.clientid in  								
+								(						
+								select distinct r.clientid 						
+								from						
+								public.attribute_view r						
+								where r.ssubattributeid && array[existing_attrib] 						
+														
+								)						
+						and v.clientid not in								
+								(						
+									select distinct s.clientid 					
+									from					
+									public.attribute_view s					
+									where s.ssubattributeid && array[new_attrib] 					
+														
+								)						
+														
+			and d.dtime is null											
+			order by ImportClientFilter,AssociationFilter,attributeFilter asc;											
+														
+														
+elseif new_attrib_level='sssubattribute'  then														
+			return query 											
+				  select 										
+				 	distinct v.clientid, 									
+					d.FName,									
+					d.LName,									
+	 				d.ULabel,									
+					case when d.ULabel like '%@%' then d.ULabel									
+					else ''									
+					end as ContactInfo									
+ 					,Assoc.name as Association									
+					, 	case when d.attributechosen is null then 'attrib_blank' 								
+						when d.subattributechosen is null and d.attributechosen is not null then 'subattrib_blank' 								
+						when d.ssubattributechosen is null and d.subattributechosen is not null then 'ssubattrib_blank' 								
+						when d.sssubattributechosen is null and d.ssubattributechosen is not null then 'sssubattrib_blank'								
+						when d.sssubattributechosen is not null then 'all_level_populated'								
+						end	 							
+						as highest_blank_level								
+														
+					,d.attributechosen, d.subattributechosen, d.ssubattributechosen,d.sssubattributechosen									
+					,DENSE_RANK() OVER (ORDER BY Assoc.name asc) AS AssociationFilter,									
+					 DENSE_RANK() OVER (ORDER BY d.attributechosen||d.subattributechosen||d.ssubattributechosen||d.sssubattributechosen asc) AS attributeFilter									
+					,DENSE_RANK() OVER (ORDER BY Assoc.name,d.attributechosen||d.subattributechosen||d.ssubattributechosen||d.sssubattributechosen asc) AS ImportClientFilter									
+					from clients	d	 							
+					join attribute_view v on d.id=v.clientid 									
+					join Assoc on d.Associd = Assoc.id 									
+					where 									
+						v.clientid in 								
+								(						
+									select distinct t.clientid 					
+									from					
+									public.attribute_view t					
+								where t.sssubattributeid && array[existing_attrib] 						
+														
+								)						
+						and v.clientid not in								
+								(						
+									select distinct u.clientid 					
+									from					
+									public.attribute_view u					
+									where u.sssubattributeid && array[new_attrib] 					
+														
+								)						
+														
+			and d.dtime is null											
+			order by ImportClientFilter,AssociationFilter,attributeFilter asc;											
+														
+end if; 														
+End;														
+$BODY$;														
+---------------------														
+														
+/*attribute_Insert_Prep function to automate client access suggestion based on attribute_view view*/														
+drop function if exists public.attribute_Insert_Prep;														
+ 														
+CREATE OR REPLACE FUNCTION public.attribute_Insert_Prep(														
+	id_pram integer,													
+	attribute_pram integer,													
+	attribute_level text,													
+	sub_optional_pram integer[] default null,													
+	ssub_optional_pram integer[] default null,													
+	sssub_optional_pram integer[] default null													
+	)													
+    RETURNS table (clientid integer,    														
+				   user_FName text,										
+				   user_LName text,										
+				   user_ULabel text,										
+				   Association text,										
+  				   user_ContactInfo text,										
+				   attribute integer[], 										
+				   subattribute integer[], 										
+				   ssubattribute integer[],										
+				   sssubattribute integer[]										
+ 				 -- ,AssociationFilter bigint,attributeFilter bigint										
+				  )										
+    LANGUAGE 'plpgsql'														
+    COST 100														
+    VOLATILE Called on null input PARALLEL SAFE 														
+														
+  														
+AS $BODY$														
+begin														
+														
+														
+if attribute_level='attribute' then 														
+return query														
+				(select										
+				   d.id, 										
+				   FName, 										
+				   LName, 										
+				   ULabel ,										
+				   Assoc.name as Association,										
+  				   case when d.ULabel like '%@%' then d.ULabel else '' end as ContactInfo,										
+				   sort(array[attribute_pram]||(select attributeid from attribute_view  where  clientid=id_pram))as attributechosen, 										
+				 										
+				 case when subattributechosen is null then subattributechosen										
+				 	else sort(sub_optional_pram||(select subattributeid from attribute_view  where  clientid=id_pram))									
+				 		end as subattributechosen								
+				 										
+				 ,case when ssubattributechosen is null then ssubattributechosen										
+				 	else sort(ssub_optional_pram||(select ssubattributeid from attribute_view  where  clientid=id_pram))									
+				 		end as ssubattributechosen								
+				 										
+ 				 ,case when sssubattributechosen is null then sssubattributechosen									 	
+				 	else sort(sssub_optional_pram||(select sssubattributeid from attribute_view  where  clientid=id_pram))									
+				 		end as sssubattributechosen								
+														
+				 from public.clients d										
+				 left join Assoc on d.Associd = Assoc.id 										
+				WHERE 										
+				d.id =id_pram 										
+				and d.dtime is null 										
+	)		;											
+														
+elseif 	attribute_level='subattribute'													
+		 												
+then return query														
+				(select										
+				   d.id, 										
+				   FName, 										
+				   LName, 										
+				   ULabel ,										
+				   Assoc.name as Association,										
+  				   case when d.ULabel like '%@%' then d.ULabel else '' end as ContactInfo,										
+				 	(select sort(attributeid) from attribute_view  where  clientid=id_pram) 									
+		 			as attributechosen, 									
+				 										
+				 	sort(array[attribute_pram]||(select subattributeid from attribute_view  where  clientid=id_pram))as subattributechosen 									
+														
+				 ,case when ssubattributechosen is null then ssubattributechosen										
+				 	else sort(ssub_optional_pram||(select ssubattributeid from attribute_view  where  clientid=id_pram))									
+				 		end as ssubattributechosen								
+				  										
+				 ,case when sssubattributechosen is null then sssubattributechosen										
+				 	else sort (sssub_optional_pram||(select sssubattributeid from attribute_view  where  clientid=id_pram)) 									
+				 		end as sssubattributechosen								
+				  										
+														
+				from public.clients d										
+				left join Assoc on d.Associd = Assoc.id										
+				WHERE 										
+				d.id =id_pram 										
+				and d.dtime is null 										
+				)	;									
+														
+elseif 	attribute_level='ssubattribute'													
+														
+	then													
+return query														
+				(select										
+				   d.id, 										
+				   FName, 										
+				   LName, 										
+				   ULabel ,										
+				   Assoc.name as Association,										
+  				   case when d.ULabel like '%@%' then d.ULabel else '' end as ContactInfo,										
+														
+				  (select sort(attributeid) from attribute_view  where  clientid=id_pram) as attributechosen,  										
+				  (select sort(subattributeid) from attribute_view  where  clientid=id_pram) as subattributechosen,  										
+				   										
+														
+				  sort(array[attribute_pram]||(select ssubattributeid from attribute_view  where  clientid=id_pram) )	as ssubattributechosen,									
+				 										
+				  case when sssubattributechosen is null then sssubattributechosen										
+				 		else sort (sssub_optional_pram||(select sssubattributeid from attribute_view  where  clientid=id_pram)) 								
+				 		end as sssubattributechosen								
+ 														
+				from public.clients d										
+				 left join Assoc on d.Associd = Assoc.id										
+					WHERE 									
+					d.id =id_pram 									
+					 									
+					and d.dtime is null 									
+	)		;											
+														
+elseif 	attribute_level='sssubattribute'													
+														
+		then												
+return query														
+				(select										
+				   d.id, 										
+				   FName, 										
+				   LName, 										
+				   ULabel ,										
+				   Assoc.name as Association,										
+  				   case when d.ULabel like '%@%' then d.ULabel else '' end as ContactInfo,										
+				   (select sort(attributeid) from attribute_view  where  clientid=id_pram) as attributechosen,  										
+				   (select sort(subattributeid) from attribute_view  where  clientid=id_pram) as subattributechosen ,  										
+				   (select sort(ssubattributeid) from attribute_view  where  clientid=id_pram) as ssubattributechosen ,										
+				 										
+				 sort(array[attribute_pram]||(select sssubattributeid from attribute_view where  clientid=id_pram) ) as sssubattributechosen 										
+				 										
+				from public.clients d										
+				 left join Assoc on d.Associd = Assoc.id										
+				WHERE 										
+				d.id =id_pram 										
+				 										
+				and d.dtime is null 										
+				)	;									
+														
+end if; 														
+End;														
+$BODY$;														
+														
+---------------------														
+/*attribute_Insert_Look function to iterate through multiple rows of the members obtained from attribute_users function*/														
+														
+drop function if exists attribute_Insert_Loop;														
+CREATE OR REPLACE FUNCTION attribute_Insert_Loop( n integer											  			
+	)													
+    RETURNS table (clientid_ integer,    														
+				   user_FName text,										
+				   user_LName text,										
+				   user_ULabel text,										
+				   Association text,										
+  				   user_ContactInfo text,										
+				   attribute_ integer[], 										
+				   subattribute_ integer[], 										
+				   ssubattribute_ integer[],										
+				   sssubattribute_ integer[] 										
+				   --,AssociationFilter bigint, attributeFilter bigint										
+				  )										
+    LANGUAGE 'plpgsql'														
+    COST 100														
+    VOLATILE Called on null input PARALLEL SAFE 														
+														
+  														
+AS $BODY$														
+														
+DECLARE														
+														
+	a integer[]:= (select array_agg(gs.val order by gs.val)													
+					from generate_series(1, n) gs(val));									
+    i integer;    														
+														
+BEGIN														
+														
+   														
+   FOR i IN 1 .. array_upper(a, 1)														
+   LOOP    														
+   														
+   return query 														
+   (	select * from	public.attribute_Insert_Prep												
+	  ( (select id_pram													
+ 		from temp where pk::int=i), 												
+	   (select 													
+		attribute_pram												
+ 		from temp   where pk::int=i),												
+	  (select 													
+		attribute_level												
+ 		from temp  where pk::int=i) ,												
+	  													
+	  (select 													
+		sub_optional_pram												
+ 		from temp  where pk::int=i),												
+	   (select 													
+		ssub_optional_pram												
+ 		from temp  where pk::int=i),												
+	   (select 													
+		sssub_optional_pram												
+ 		from temp  where pk::int=i)												
+	  													
+	  ) );													
+	END LOOP;													
+End;														
+$BODY$;														
+														
+---------------------														
+/*create temp table as container for the iteration in the loop function*/														
+														
+CREATE OR REPLACE FUNCTION create_table()														
+  RETURNS VOID AS														
+$func$														
+BEGIN														
+														
+drop table if exists temp;														
+CREATE TABLE IF NOT EXISTS temp (														
+       pk SERIAL primary key, 														
+	 id_pram integer UNIQUE,													
+	attribute_pram integer,													
+	attribute_level text,													
+	 sub_optional_pram integer[] ,													
+	ssub_optional_pram integer[],													
+	sssub_optional_pram integer[] 													
+	)													
+;														
+														
+END														
+$func$ LANGUAGE plpgsql;														
+														
+-------------------------------														
+drop function if exists array_distinct;														
+CREATE FUNCTION array_distinct(anyarray) RETURNS anyarray AS $f$														
+  SELECT array_agg(DISTINCT x) FROM unnest($1) t(x);														
+$f$ LANGUAGE SQL IMMUTABLE;														
+														
+-------------------------------														
+/*Optimize query running*/														
+drop function if exists attrib_bulk ;														
+CREATE OR REPLACE FUNCTION public.attrib_bulk(														
+new_attrib integer,														
+existing_attrib integer,														
+attrib_level text,														
+add_attrib integer,														
+add_attrib_level text,														
+sub_pram integer[] default null,														
+ssub_pram integer[] default null,														
+sssub_pram integer[] default null														
+	)													
+    RETURNS table (clientid integer,    														
+				   ULabel text,										
+				   attribute integer[], 										
+				   subattribute integer[], 										
+				   ssubattribute integer[],										
+				   sssubattribute integer[]										
+				  )										
+    LANGUAGE 'plpgsql'														
+    COST 100														
+    VOLATILE Called on null input PARALLEL SAFE 														
+														
+  														
+AS $BODY$														
+begin														
+														
+														
+/*Step 1*/														
+--select * from create_table();						/*create a temp table using the create_table procedure*/								
+insert into temp (id_pram) 														
+select distinct id from attribute_users_(new_attrib, existing_attrib, attrib_level); /*insert diff users calling attribute_user function*/														
+														
+/*Step 2*/														
+update temp 														
+SET 														
+	attribute_pram=add_attrib,					/*add the new attribute number to the users without access to it*/								
+	attribute_level= add_attrib_level,					/*new attribute level*/								
+	sub_optional_pram=sub_pram,					/*adjust the optional pram for blank subcategories with inheritance*/								
+	ssub_optional_pram=ssub_pram,					/*adjust the optional pram for blank ssubcategories with inheritance*/								
+	sssub_optional_pram=sssub_pram;					/*adjust the optional pram for blank sssubcategories with inheritance*/								
+														
+														
+														
+/*Step 3*/														
+	IF not EXISTS (select * from temp) then													
+		raise notice 'There is no user to the attribute number provided.';												
+	end if;													
+	If  EXISTS (select * from temp)													
+	then													
+	Return query (													
+	select distinct clientid_,user_ULabel,													
+	array_distinct(attribute_),array_distinct (subattribute_) ,													
+	array_distinct(ssubattribute_) ,array_distinct(sssubattribute_) 													
+	from attribute_Insert_Loop ((select count (*) from temp)::int)													
+	)	;												
+	end if; 													
+End;														
+$BODY$;														
+														
+														
