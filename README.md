@@ -29,7 +29,7 @@ Program Coordinator        University of Calgary 					2013-2017
   
 ### AI Application   
  -Hugging Face Transformers  
- [LLM Applications](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/AI-Transformers)    
+ [LLM Application](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/AI-Transformers)    
                      
 ### Turnaround Dashboard
   - To enhance operational efficiency, I created the turnaround metrics and dashboard using Python to benchmark performance. The SQL Turnaround Calculation serves as the input data for the Python dashboard, which is integrated into the Python flow.        
