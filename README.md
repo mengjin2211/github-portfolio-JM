@@ -27,11 +27,10 @@ Program Coordinator        University of Calgary 					2013-2017
   ![Time-Series Analysis of Influxes Using Prophet Machine Learning Model](/assets/Time Series Analysis ML Model.png)  
   
 ### AI Applications 
- -Using LLM model APIs to conduct text analysis, semantic search, categorization and sumarization  
+ -Hugging Face Transformers  
+ [LLM Applications](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/AI%20Large%20Language%20Models)    
  
-### NLP Natural Language Process ML Model
- 
-### Report Automation-	Turnaround Dashboard
+### Turnaround Dashboard
   - To enhance operations efficiency, I created the turnaround metrics and dashboard using python to benchmark performance    
 
 [Turnaround Dashboard Python Code](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/Turnaround%20Calculation%20Python%20Code%20Ingestion%20SQL%20DB)
@@ -55,6 +54,6 @@ Program Coordinator        University of Calgary 					2013-2017
 ![Tableau Prep Builder with Py files](/assets/Tableau Prep Builder2.png)   	
 
 ### Other Projects 
- - Big Data, Data Engineering, ETL, Machine Learning and Data Science    
+ - Big Data, Data Engineering, ETL, Machine Learning and Data Science      
 [Sample Data Projects by JM](https://github.com/mengjin2211/sample-work)  
 
