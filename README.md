@@ -29,7 +29,7 @@ Program Coordinator        University of Calgary 					2013-2017
 ### AI Applications 
  -Hugging Face Transformers  
  [LLM Applications](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/AI-Transformers)    
- 
+                     
 ### Turnaround Dashboard
   - To enhance operations efficiency, I created the turnaround metrics and dashboard using python to benchmark performance    
 
@@ -57,4 +57,7 @@ Program Coordinator        University of Calgary 					2013-2017
 ### Other Projects 
  - Big Data, Data Engineering, ETL, Machine Learning and Data Science      
 [Sample Data Projects by JM](https://github.com/mengjin2211/sample-work)  
+
+### Conclusion  
+Thank you for exploring my project portfolio. Each project listed here represents innovation, exploration, and growth. With hands-on data skills, I have successfully driven technical and process innovation to increase efficiency of the data workflow and the ability to make data driven decisions. Many of my projects (not listed) are private due to their nature. Feel free to reach out to me about questions, suggestions and opportunities.  
 
