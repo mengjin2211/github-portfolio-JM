@@ -3,7 +3,8 @@ logo: /assets/me.png
 
 description: Visionary technical leader with track record of inspiring excellence and enhancing operational efficiency.  
 
-Linkedin: "https://www.linkedin.com/in/jin-meng-29830673/"
+author:
+  linkedin: "https://www.linkedin.com/in/jin-meng-29830673/"
 
 show_downloads: true
 theme: jekyll-theme-minimal
