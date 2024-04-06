@@ -56,7 +56,7 @@ Program Coordinator        University of Calgary 					2013-2017
 ![Tableau Prep Builder](/assets/Tableau Prep Builder.png) 	 
 ![Tableau Prep Builder with Py files](/assets/Tableau Prep Builder2.png)     	
 
-### Automation SQL Function Cluster   
+### SQL Function Cluster   
 [Client Attribute Bulk Processing Function Cluster](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/SQL%20Function%20Cluster) 
 
 ### Other Projects 
