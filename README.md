@@ -1,4 +1,5 @@
-# Data Engineer Manager
+# Data Manager  
+[LinkedIn](https://www.linkedin.com/in/jin-meng-29830673/)
 
 ## Work Experience
 Data Quality Manager       Policy Reporter 						2022-now \
