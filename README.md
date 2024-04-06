@@ -35,7 +35,8 @@ Program Coordinator        University of Calgary 					2013-2017
   - To enhance operations efficiency, I created the turnaround metrics and dashboard using python to benchmark performance. SQL Turnaround Calculation is the input data for python dashboard which is integrated in the python flow.    
 
 [Turnaround Dashboard Python Code](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/Turnaround%20Dashboard%20Python%20Code)    
-[Turnaround Calculation SQL Code](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/SQL%20Turnaround%20Calculation)    
+[Turnaround Calculation PostgreSQL Code](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/PostgreSQL%20Turnaround%20Calculation)  
+[Manual Turnaround T-SQL Stored Procedure](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/T-SQL%20Manual%20Turnaround)  
     
 ![Turnaround Dashboard](/assets/Turnaround.png)     
 
