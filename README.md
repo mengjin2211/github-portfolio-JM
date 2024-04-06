@@ -68,9 +68,14 @@ Program Coordinator        University of Calgary 					2013-2017
 ![Alumni Bubble Chart](/assets/Alumni.png)  
  - Images used are for illustrative purposes only   
 
-### Other Projects 
- - Big Data, Data Engineering, ETL, Machine Learning, and Data Science        
-[Other Data Projects by JM](https://github.com/mengjin2211/sample-work)    
+### Other 
+[Big Data NoSQL Cassandra, MongoDB, Claudant](https://github.com/mengjin2211/sample-work/blob/main/code/final%20project%20for%20cassandra%2C%20MongoDB%2C%20Cloudant.txt)  
+[Bash for Table Creation on Postgres](https://github.com/mengjin2211/sample-work/blob/main/code/Bash%20for%20creating%20table%20using%20downloaded%20file.txt)  
+[Apache Airflow DAG Data Flow](https://github.com/mengjin2211/sample-work/blob/main/code/DAG%20ETL_Server_Access_Log_Processing..txt)  
+[Spark ML](https://github.com/mengjin2211/sample-work/blob/main/code/spark%20ML%20sample.ipynb)  
+[KNN Classification](https://github.com/mengjin2211/sample-work/blob/main/code/KNN%20Model.ipynb)  
+[K-Means](https://github.com/mengjin2211/sample-work/blob/main/code/K-Means-Customer-Seg.jupyterlite.ipynb)    
+[SpaceX Data Visualization](https://github.com/mengjin2211/sample-work/blob/main/code/SpaceX%20Data%20Visualization.ipynb)     
 
 ### Conclusion  
 Thank you for exploring my project portfolio. With hands-on data skills, I have successfully driven technical and process innovation to increase efficiency of the data workflow and the ability to make data-driven decisions.  
