@@ -50,8 +50,9 @@ Program Coordinator        University of Calgary 					2013-2017
 ### Report Automation Matrix
 - Creating complex reports used to take over 200 hours per report, resulting in backlogs. By integrating an automation flow and employing Python data scripts within our Tableau Prep builder flow, we've streamlined the process to a couple of hours.
 - This enhancement not only accelerates our reporting speed but also significantly augments our capacity to drive impactful institutional campaigns. (Images used are for illustrative purposes only)    
+
 ![Tableau Prep Builder](/assets/Tableau Prep Builder.png) 	 
-![Tableau Prep Builder with Py files](/assets/Tableau Prep Builder2.png)   	
+![Tableau Prep Builder with Py files](/assets/Tableau Prep Builder2.png)     	
 
 ### Other Projects 
  - Big Data, Data Engineering, ETL, Machine Learning and Data Science      
