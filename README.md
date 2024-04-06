@@ -65,6 +65,10 @@ Program Coordinator        University of Calgary 					2013-2017
 
 ![Stock](/assets/stock.png)  
 
+### Alumni Dashboard   
+![Alumni Bubble Chart](/assets/Alumni.png)  
+ - Images used are for illustrative purposes only: https://images.app.goo.gl/Aut3iESgz8GomMkR8  
+
 ### Other Projects 
  - Big Data, Data Engineering, ETL, Machine Learning, and Data Science        
 [Other Data Projects by JM](https://github.com/mengjin2211/sample-work)    
