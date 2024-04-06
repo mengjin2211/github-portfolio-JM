@@ -1,0 +1,98 @@
+# experimented with Hugging Face's Transformers using Large Language Models to conduct url text classification and text generation.
+
+import transformers
+from transformers import GPT2Tokenizer, GPT2ForSequenceClassification
+import requests
+from bs4 import BeautifulSoup  # Optional for HTML parsing
+import pandas as pd  # Optional for data handling
+from sklearn.model_selection import train_test_split  # Optional for model evaluation
+import torch
+
+from transformers import pipeline
+
+classifier = pipeline("sentiment-analysis")
+classifier("I've been waiting for a HuggingFace course my whole life.")
+
+from transformers import pipeline
+
+classifier = pipeline("zero-shot-classification")
+classifier(
+    "This is a course about the Transformers library",
+    candidate_labels=["education", "politics", "business"],
+)
+
+import requests
+from transformers import pipeline
+import re
+from bs4 import BeautifulSoup
+# Fetch the content from the URL
+url = 'https://www.aad.org/public/everyday-care/skin-care-basics'
+response = requests.get(url)
+response.raise_for_status()  # Raise an exception for non-200 status codes
+text = response.text
+soup = BeautifulSoup(text, 'html.parser')
+visible_text = soup.get_text(separator='. ', strip=True)
+#cleaned_text = re.sub(r'\W', ' ', text)
+print(visible_text) 
+
+# Initialize the zero-shot classification pipeline
+classifier = pipeline(task="zero-shot-classification", model="facebook/bart-large-mnli", revision="c626438")
+
+# Define the list of categories
+categories = [
+    'X-ray',
+    'Drug',
+    'Cosmetic',
+    'Ultrasound',
+    'unknown_category'
+]
+
+# Perform zero-shot classification
+result = classifier(
+    visible_text[0:50],
+    candidate_labels=categories
+)
+ 
+print(result)
+
+from transformers import pipeline
+generator = pipeline("text-generation", model="gpt2") 
+#The main idea here is that you provide a prompt and the model will auto-complete it by generating the remaining text. 
+generator("In this course, we will teach you how to")
+
+print(generator.model.__class__.__name__) #print(generator.model.config)
+
+#category_mapping = {str(i): cat[i] for i in range(len(cat))}
+
+def classify_url(url):
+    try:
+        # Fetch text from the URL
+        response = requests.get(url)
+        response.raise_for_status()  # Raise an exception for non-200 status codes
+        text = response.text
+
+        # Tokenize the text into chunks of 512 tokens
+        tokenized_chunks = tokenizer.batch_encode_plus(
+            [text[i:i+512] for i in range(0, len(text), 512)],
+            return_tensors="pt",
+            truncation=True,
+            max_length=512,
+            padding=True
+        )
+
+        # Classify each chunk using the custom pipeline
+        results = classifier([tokenizer.decode(chunk) for chunk in tokenized_chunks["input_ids"]])
+
+        print("Model Output Labels:", results[0]['label'])
+        return results
+        #predicted_label = results[0]['label']
+        #predicted_category = category_mapping[predicted_label]
+
+
+    except requests.exceptions.RequestException as e:
+        print(f"Error fetching text from URL: {e}")
+        return None
+url = "..../cosmetic-reconstructive"
+predicted_category = classify_url(url)
+print(f"Predicted category: {predicted_category}")
+
