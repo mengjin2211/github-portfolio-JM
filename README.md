@@ -17,7 +17,7 @@ Program Coordinator        University of Calgary 					2013-2017
 •	IBM Data Science Professional Certificate \
 •	Microsoft Azure DP-900 \
 •	Microsoft Azure AZ-900  \
-•	Machine Learning Certificate \
+•	Machine Learning Certificate  
 
 ## Projects
 ### Influx Analysis Machine Learning Model
