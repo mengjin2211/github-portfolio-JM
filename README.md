@@ -28,7 +28,7 @@ Program Coordinator        University of Calgary 					2013-2017
   
 ### AI Applications 
  -Hugging Face Transformers  
- [LLM Applications](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/AI%20Large%20Language%20Models)    
+ [LLM Applications](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/AI-Transformers)    
  
 ### Turnaround Dashboard
   - To enhance operations efficiency, I created the turnaround metrics and dashboard using python to benchmark performance    
