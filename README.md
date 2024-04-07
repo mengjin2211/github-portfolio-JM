@@ -9,10 +9,10 @@ Senior Programs Specialist University of Calgary 					2017-2020 \
 Program Coordinator        University of Calgary 					2013-2017 
  
 ## Education and Certifications
-•	MA (UESTC)  
-•	MSc in Artificial Intelligence (Starting June 2024)  
+•	MA (UESTC) \  
+•	MSc in Artificial Intelligence (Starting June 2024) \  
 •	IBM Data Engineering Certificate \
-•	IBM Data Warehouse Engineer Certificate
+•	IBM Data Warehouse Engineer Certificate \  
 •	Business Intelligence & Analytics Certificate (University of Calgary) \
 •	Database Administration Certificate (University of Calgary) \
 •	IBM Data Science Professional Certificate \
