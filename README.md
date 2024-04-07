@@ -9,9 +9,10 @@ Senior Programs Specialist University of Calgary 					2017-2020 \
 Program Coordinator        University of Calgary 					2013-2017 
  
 ## Education and Certifications
+•	MA (UESTC)  
+•	MSc in Artificial Intelligence (Starting June 2024)  
 •	IBM Data Engineering Certificate \
 •	IBM Data Warehouse Engineer Certificate
-•	MA (U of Electronic Science & Tech) \
 •	Business Intelligence & Analytics Certificate (University of Calgary) \
 •	Database Administration Certificate (University of Calgary) \
 •	IBM Data Science Professional Certificate \
@@ -47,7 +48,7 @@ Program Coordinator        University of Calgary 					2013-2017
 ### Process Automation - PostgreSQL Functions
 [Recursive CTE & SQL SP](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/SQL%20Automation)     
 
-### Customer Request Analysis Model
+### Topic Analysis Model
 [Client Request Topic Analysis NLP](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/Customer%20Request%20Analysis%20NLP%20Model)     
 
 ### Report Automation Matrix
@@ -64,12 +65,13 @@ Program Coordinator        University of Calgary 					2013-2017
 [Stock Analysis Python Code](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/Stock%20(2).ipynb)  
 ![Stock](/assets/stock.png)  
 
-### Alumni Dashboard   
-![Alumni Bubble Chart](/assets/Alumni.png)  
+### Report Automation-Alumni Dashboard   
+- Developed dynamic self-service BI portal for real-time reporting  
+![Alumni Dashboard](/assets/Alumni.png)  
  - Images used are for illustrative purposes only   
 
 ### Other 
-[Big Data NoSQL Cassandra, MongoDB, Claudant](https://github.com/mengjin2211/sample-work/blob/main/code/final%20project%20for%20cassandra%2C%20MongoDB%2C%20Cloudant.txt)  
+[Big Data- NoSQL- Cassandra, MongoDB, Claudant](https://github.com/mengjin2211/sample-work/blob/main/code/final%20project%20for%20cassandra%2C%20MongoDB%2C%20Cloudant.txt)  
 [Bash for Table Creation on Postgres](https://github.com/mengjin2211/sample-work/blob/main/code/Bash%20for%20creating%20table%20using%20downloaded%20file.txt)  
 [Apache Airflow DAG Data Flow](https://github.com/mengjin2211/sample-work/blob/main/code/DAG%20ETL_Server_Access_Log_Processing..txt)  
 [Spark ML](https://github.com/mengjin2211/sample-work/blob/main/code/spark%20ML%20sample.ipynb)  
