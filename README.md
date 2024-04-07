@@ -1,5 +1,5 @@
 # Data Manager  
-[LinkedIn](https://www.linkedin.com/in/jin-meng-29830673/)
+[LinkedIn](https://www.linkedin.com/in/jin-meng-29830673/)  
 Visionary technical leader with track record of inspiring excellence and formulating long-term data strategies for the success of the organization.  
 
 ## Work Experience
