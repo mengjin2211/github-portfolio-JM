@@ -3,8 +3,6 @@ I developed a postgreSQL function that handles the complex inheritance &hierachy
 Tools: CTE, Recursive CTE, user-defined function 
 Positive impact: 10 hr to 20 hr/weekly manual processing saved for the meta data management person  
 
-I'm unable to share the company script, but I can describe the projects I've worked on in general terms below. 
-
 Here's a brief description of the function's logic:
 My function first checks if the a certain attribute exists in the specified hierachy level (master, sub, ssub, sssub ).
 Depending on the new document hierachy level, it executes different queries to fetch data from the database.
