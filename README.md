@@ -79,6 +79,8 @@ Program Coordinator        University of Calgary 					2013-2017
 [KNN Classification](https://github.com/mengjin2211/sample-work/blob/main/code/KNN%20Model.ipynb)  
 [K-Means](https://github.com/mengjin2211/sample-work/blob/main/code/K-Means-Customer-Seg.jupyterlite.ipynb)    
 [SpaceX Data Visualization](https://github.com/mengjin2211/sample-work/blob/main/code/SpaceX%20Data%20Visualization.ipynb)     
+[GenAI Search](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/AWS%20Conversational_Search_with_GenAI.ipynb)
+
 
 ### Conclusion  
 Thank you for exploring my project portfolio. With hands-on data skills, I have successfully driven technical and process innovation to increase efficiency of the data workflow and the ability to make data-driven decisions.  
