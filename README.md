@@ -10,7 +10,7 @@ Senior Programs Specialist University of Calgary 					2017-2020 \
 Program Coordinator        University of Calgary 					2013-2017 
  
 ## Education and Certifications
-•	Pursuing Master of AI program May 2024 
+•	Pursuing Master of AI program    
 •	BA     
 •	IBM Data Engineering Certificate \
 •	IBM Data Warehouse Engineer Certificate    
