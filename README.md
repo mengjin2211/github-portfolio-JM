@@ -3,11 +3,11 @@
 Visionary technical leader with track record of inspiring excellence and formulating long-term data strategies for the success of the organization. Passionate about using AI to automate workflow and transform the data industry.  
 
 ## Work Experience
-Data Quality Manager       Policy Reporter 						2022-now \
-Manager of Data Analytics  LandSure Systems, Land Title& Survey Authority of BC 	2021-2022 \
-Manager of Records         Simon Fraser University 				2020-2021 \
-Senior Programs Specialist University of Calgary 					2017-2020 \
-Program Coordinator        University of Calgary 					2013-2017 
+Data Quality Manager,       Policy Reporter 						2022-now \
+Manager of Data Analytics,  LandSure Systems     	2021-2022 \
+Manager of Records,         Simon Fraser University 				2020-2021 \
+Senior Programs Specialist, University of Calgary 					2017-2020 \
+Program Coordinator,        University of Calgary 					2013-2017 
  
 ## Education and Certifications
 •	Pursuing Master of AI program    
