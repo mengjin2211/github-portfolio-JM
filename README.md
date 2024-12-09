@@ -9,9 +9,10 @@ Manager of Records,         Simon Fraser University 				2020-2021 \
 Senior Programs Specialist, University of Calgary 					2017-2020 \
 Program Coordinator,        University of Calgary 					2013-2017 
  
-## Education and Certifications
-•	Pursuing Master of AI program    
-•	BA     
+## Education 
+•	MSc in AI and Machine Learning, Colorado State University Global (In Progress)   
+•	MA & BA in Applied Linguistics (Completed)
+## Certifications  
 •	IBM Data Engineering Certificate \
 •	IBM Data Warehouse Engineer Certificate    
 •	Business Intelligence & Analytics Certificate (University of Calgary) \
@@ -71,9 +72,11 @@ Program Coordinator,        University of Calgary 					2013-2017
 ![Alumni Dashboard](/assets/Alumni.png)  
  - Images used are for illustrative purposes only   
 
-### Data Science, Big Data & ML
+### Data Science, ML & Big Data
 [KNN Classification](https://github.com/mengjin2211/sample-work/blob/main/code/KNN%20Model.ipynb)  
 [K-Means](https://github.com/mengjin2211/sample-work/blob/main/code/K-Means-Customer-Seg.jupyterlite.ipynb)   
+[Time-Series Analysis Code](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/Time-series%20Analysis%20Model)  
+[Client Request Topic Analysis NLP](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/Customer%20Request%20Analysis%20NLP%20Model)   
 [Big Data- NoSQL- Cassandra, MongoDB, Claudant](https://github.com/mengjin2211/sample-work/blob/main/code/final%20project%20for%20cassandra%2C%20MongoDB%2C%20Cloudant.txt)  
 [Bash for Table Creation on Postgres](https://github.com/mengjin2211/sample-work/blob/main/code/Bash%20for%20creating%20table%20using%20downloaded%20file.txt)  
 [Apache Airflow DAG Data Flow](https://github.com/mengjin2211/sample-work/blob/main/code/DAG%20ETL_Server_Access_Log_Processing..txt)  
