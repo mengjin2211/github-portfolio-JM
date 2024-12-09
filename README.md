@@ -23,6 +23,19 @@ Program Coordinator,        University of Calgary 					2013-2017
 •	Machine Learning Certificate  
 
 ## Projects
+### Data Science, ML & Big Data Projects
+[KNN Classification](https://github.com/mengjin2211/sample-work/blob/main/code/KNN%20Model.ipynb)  
+[K-Means](https://github.com/mengjin2211/sample-work/blob/main/code/K-Means-Customer-Seg.jupyterlite.ipynb)   
+[Time-Series Analysis Code](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/Time-series%20Analysis%20Model)  
+[Client Request Topic Analysis NLP](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/Customer%20Request%20Analysis%20NLP%20Model)   
+[Big Data- NoSQL- Cassandra, MongoDB, Claudant](https://github.com/mengjin2211/sample-work/blob/main/code/final%20project%20for%20cassandra%2C%20MongoDB%2C%20Cloudant.txt)  
+[Bash for Table Creation on Postgres](https://github.com/mengjin2211/sample-work/blob/main/code/Bash%20for%20creating%20table%20using%20downloaded%20file.txt)  
+[Apache Airflow DAG Data Flow](https://github.com/mengjin2211/sample-work/blob/main/code/DAG%20ETL_Server_Access_Log_Processing..txt)  
+[Spark ML](https://github.com/mengjin2211/sample-work/blob/main/code/spark%20ML%20sample.ipynb)  
+[SpaceX Data Visualization](https://github.com/mengjin2211/sample-work/blob/main/code/SpaceX%20Data%20Visualization.ipynb)     
+[GenAI Search](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/AWS%20Conversational_Search_with_GenAI.ipynb)
+[Grok Chatbot](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/Grok%20AI%20Chatbot.txt)  
+
 ### Influx Analysis Machine Learning Model
 
   -Based on historical influx data, I created ML model to forecast the future influxes for resource planning  
@@ -32,8 +45,8 @@ Program Coordinator,        University of Calgary 					2013-2017
   
 ### AI Application   
  -Hugging Face Transformers  
- [LLM Application](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/AI-Transformers)    
-                     
+ [LLM Application](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/AI-Transformers)                     
+
 ### Turnaround Dashboard
   - To enhance operational efficiency, I created the turnaround metrics and dashboard using Python to benchmark performance. The SQL Turnaround Calculation serves as the input data for the Python dashboard, which is integrated into the Python flow.        
 
@@ -71,19 +84,6 @@ Program Coordinator,        University of Calgary 					2013-2017
 - Developed dynamic self-service BI portal for real-time reporting  
 ![Alumni Dashboard](/assets/Alumni.png)  
  - Images used are for illustrative purposes only   
-
-### Data Science, ML & Big Data
-[KNN Classification](https://github.com/mengjin2211/sample-work/blob/main/code/KNN%20Model.ipynb)  
-[K-Means](https://github.com/mengjin2211/sample-work/blob/main/code/K-Means-Customer-Seg.jupyterlite.ipynb)   
-[Time-Series Analysis Code](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/Time-series%20Analysis%20Model)  
-[Client Request Topic Analysis NLP](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/Customer%20Request%20Analysis%20NLP%20Model)   
-[Big Data- NoSQL- Cassandra, MongoDB, Claudant](https://github.com/mengjin2211/sample-work/blob/main/code/final%20project%20for%20cassandra%2C%20MongoDB%2C%20Cloudant.txt)  
-[Bash for Table Creation on Postgres](https://github.com/mengjin2211/sample-work/blob/main/code/Bash%20for%20creating%20table%20using%20downloaded%20file.txt)  
-[Apache Airflow DAG Data Flow](https://github.com/mengjin2211/sample-work/blob/main/code/DAG%20ETL_Server_Access_Log_Processing..txt)  
-[Spark ML](https://github.com/mengjin2211/sample-work/blob/main/code/spark%20ML%20sample.ipynb)  
-[SpaceX Data Visualization](https://github.com/mengjin2211/sample-work/blob/main/code/SpaceX%20Data%20Visualization.ipynb)     
-[GenAI Search](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/AWS%20Conversational_Search_with_GenAI.ipynb)
-[Grok Chatbot](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/Grok%20AI%20Chatbot.txt)
 
 ### Conclusion  
 Thank you for exploring my project portfolio. With hands-on data skills, I have successfully driven technical and process innovation to increase efficiency of the data workflow and the ability to make data-driven decisions.  
