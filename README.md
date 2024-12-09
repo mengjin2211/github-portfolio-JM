@@ -1,6 +1,6 @@
 # Data Manager  
 [LinkedIn](https://www.linkedin.com/in/jin-meng-29830673/)  
-Visionary technical leader with track record of inspiring excellence and formulating data strategies for the success of the organization. Passionate about using AI to automate workflow and transform the data industry.  
+Visionary technical leader with track record of inspiring excellence and formulating data strategies for the success of the organization. Passionate about using AI to automate workflow and transform the data industry. Hands-on experience in data science, analytics and machine learning.  
 
 ## Work Experience
 Data Quality Manager,       Policy Reporter 						2022-now \
