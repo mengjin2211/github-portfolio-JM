@@ -24,11 +24,15 @@ Program Coordinator,        University of Calgary 					2013-2017
 
 ## Projects
 ### Data Science, ML & Big Data Projects
-[KNN Classification](https://github.com/mengjin2211/sample-work/blob/main/code/KNN%20Model.ipynb)  
-[K-Means](https://github.com/mengjin2211/sample-work/blob/main/code/K-Means-Customer-Seg.jupyterlite.ipynb)   
-[Time-Series Analysis Code](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/Time-series%20Analysis%20Model)  
+[Revenue Forecast](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/Revenue%20Prediction.py)
+[Propensity Score ML](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/Propensity%20Score%20ML.py)
+[Marketing Efforts Segregation](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/Marketing%20Efforts%20Segregation.py)
+[AB Testing](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/AB%20Testing.py)
+[Time-Series Analysis ML Forecast](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/Time-series%20Analysis%20Model)  
 [Client Request Topic Analysis NLP](https://github.com/mengjin2211/github-portfolio-JM/blob/main/sample%20code/Customer%20Request%20Analysis%20NLP%20Model)   
 [Big Data- NoSQL- Cassandra, MongoDB, Claudant](https://github.com/mengjin2211/sample-work/blob/main/code/final%20project%20for%20cassandra%2C%20MongoDB%2C%20Cloudant.txt)  
+[KNN Classification](https://github.com/mengjin2211/sample-work/blob/main/code/KNN%20Model.ipynb)  
+[K-Means](https://github.com/mengjin2211/sample-work/blob/main/code/K-Means-Customer-Seg.jupyterlite.ipynb)   
 [Bash for Table Creation on Postgres](https://github.com/mengjin2211/sample-work/blob/main/code/Bash%20for%20creating%20table%20using%20downloaded%20file.txt)  
 [Apache Airflow DAG Data Flow](https://github.com/mengjin2211/sample-work/blob/main/code/DAG%20ETL_Server_Access_Log_Processing..txt)  
 [Spark ML](https://github.com/mengjin2211/sample-work/blob/main/code/spark%20ML%20sample.ipynb)  
